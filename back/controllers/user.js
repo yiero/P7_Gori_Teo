@@ -15,6 +15,7 @@ exports.get = (req, res, next) => {
     sequelize.authenticate();
     sequelize.query("SELECT * FROM utilisateur").then(([results, metadata]) => {
       console.log(results);
+      res.status(200).json(results);
     })
   } catch (error) {
     console.log('Impossible de se connecter, erreur suivante :', error);
@@ -32,6 +33,7 @@ exports.getOne = (req, res, next) => {
     let id = req.params.id;
     sequelize.query(`SELECT * FROM utilisateur WHERE id=${id}`).then(([results, metadata]) => {
       console.log(results);
+      res.status(200).json(results);
     })
   } catch (error) {
     console.log('Impossible de se connecter, erreur suivante :', error);
