@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 
-
 const app = express();
 
 app.use((req, res, next) => {
