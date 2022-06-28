@@ -39,3 +39,4 @@ exports.getOne = (req, res, next) => {
     console.log('Impossible de se connecter, erreur suivante :', error);
   }
 };
+
