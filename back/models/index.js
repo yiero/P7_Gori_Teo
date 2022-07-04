@@ -3,7 +3,8 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
-    dialect: dbConfig.dialect,host: "localhost",
+    dialect: dbConfig.dialect,
+    host: "localhost",
     user: "root",
     password: "password",
     database: "groupomania",

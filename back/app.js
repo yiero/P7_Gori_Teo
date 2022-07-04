@@ -20,9 +20,9 @@ db.sequelize.sync()
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 
 app.use(bodyParser.json());

@@ -1,25 +1,11 @@
 const db = require('../models');
 const User = db.user;
 const Op = db.Sequelize.Op;
-// const mysql = require('mysql');
-// const { Sequelize } = require('sequelize');
 
-
-exports.get = (req, res, next) => {
-  const sequelize = new Sequelize("groupomania", "root", "password", {
-    dialect: "mysql",
-    host: "localhost"
-  });
-
-  try {
-    sequelize.authenticate();
-    sequelize.query("SELECT * FROM utilisateur").then(([results, metadata]) => {
-      console.log(results);
-      res.status(200).json(results);
-    })
-  } catch (error) {
-    console.log('Impossible de se connecter, erreur suivante :', error);
-  }
+exports.get = (req, res) => {
+  User.findAll()
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOne = (req, res) => {
