@@ -12,6 +12,18 @@ app.use((req, res, next) => {
     next();
   });
 
+const db = require("./models");
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
+
 
 app.use(bodyParser.json());
 
