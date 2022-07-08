@@ -1,14 +1,12 @@
 const db = require('../models');
 const User = db.user;
-const Op = db.Sequelize.Op;
 
-// UPDATE / DELETE à terminer
 
 exports.get = (req, res) => {
   User.findAll()
     .then(user => res.status(200).json(user))
     .catch(error => res.status(400).json({ error }));
-};
+}; 
 
 exports.getOne = (req, res) => {
   let id = req.params.id;
@@ -27,7 +25,7 @@ exports.getOne = (req, res) => {
           message: "Error retrieveing User with id= " + id
         });
       });
-};
+}; 
 
 exports.update = (req, res) => {
   const id = req.params.id;
@@ -97,4 +95,4 @@ exports.delete = (req, res) => {
         message: "Could not delete User with id=" + id
       });
     });
-};  
+}; 
