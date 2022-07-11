@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const postRoutes = require('./routes/post');
+const topicRoutes = require('./routes/topic');
 const userRoutes = require('./routes/user');
 
 const app = express();
@@ -27,7 +27,7 @@ db.sequelize.sync()
 
 app.use(bodyParser.json());
 
-app.use('/api/post', postRoutes);
+app.use('/api/topic', topicRoutes);
 app.use('/api', userRoutes);
 
 module.exports = app;
