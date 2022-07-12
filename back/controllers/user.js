@@ -1,5 +1,7 @@
 const db = require('../models');
 const User = db.user;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 exports.get = (req, res) => {
@@ -58,6 +60,8 @@ exports.create = (req, res) => {
     return;
   }
   const user = {
+    password: req.body.password,
+    pseudo: req.body.pseudo,
     nom: req.body.nom,
     prenom: req.body.prenom,
     email: req.body.email
@@ -96,3 +100,46 @@ exports.delete = (req, res) => {
       });
     });
 }; 
+
+exports.signup = (req, res) => {
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+      const user = new User ({
+        password: hash,
+        pseudo: req.body.pseudo,
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        email: req.body.email
+      });
+      user.save()
+        .then(() => res.status(201).json({ message: 'User has been created !' }))
+        .catch(error => res.status(400).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
+};
+
+exports.login = (req, res) => {
+  const email = req.body.email;
+  User.findByPk(email)
+    .then(user => {
+      if (!user) {
+        return res.status(401).json({ error: 'User not found' })
+      }
+      bcrypt.compare(req.body.password, user.password)
+        .then(valid => {
+          if (!valid) {
+            return res.status(401).json({ error: 'incorrect password !' })
+          }
+          res.status(200).json({
+            userId: user.id,
+            token: jwt.sign(
+              { userId: user.id },
+              TOKEN = 'RANDOM_TOKEN_SECRET', 
+              { expiresIn: '24h' }
+            )
+          });
+        })
+        .catch(error => res.status(500).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
+};
