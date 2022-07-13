@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const topicRoutes = require('./routes/topic');
 const userRoutes = require('./routes/user');
+const commentRoutes = require('./routes/comment');
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use(bodyParser.json());
 
 app.use('/api/topic', topicRoutes);
 app.use('/api', userRoutes);
+app.use('/api/comment', commentRoutes);
 
 module.exports = app;
