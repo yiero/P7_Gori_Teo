@@ -3,6 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         pseudo: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: true
         },
         password: {
             type: Sequelize.STRING,
@@ -18,7 +19,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         email: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         }
     });
     return User;

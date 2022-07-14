@@ -120,15 +120,15 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
   const email = req.body.email;
-  User.findByPk(email)
+  User.findOne({ where: { email: email } })
     .then(user => {
       if (!user) {
-        return res.status(401).json({ error: 'User not found' })
-      }
-      bcrypt.compare(req.body.password, user.password)
+        return res.status(401).json({ error: 'User not found' });
+      } 
+      bcrypt.compare(req.body.password, user.password) // jusque ici ça fonctionne
         .then(valid => {
           if (!valid) {
-            return res.status(401).json({ error: 'incorrect password !' })
+            return res.status(401).json({ error: 'incorrect password !' });
           }
           res.status(200).json({
             userId: user.id,
@@ -139,7 +139,7 @@ exports.login = (req, res) => {
             )
           });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error })); // On arrive directement ici
     })
     .catch(error => res.status(500).json({ error }));
 };
