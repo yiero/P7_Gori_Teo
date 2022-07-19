@@ -9,4 +9,5 @@ router.get('/:id', topicCtrl.getOne);
 router.put('/:id', topicCtrl.update);
 router.delete('/:id', topicCtrl.delete);
 
+
 module.exports = router;

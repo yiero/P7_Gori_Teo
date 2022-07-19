@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const topicRoutes = require('./routes/topic');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comment');
+const dotenv = require('dotenv').config();
 
 const app = express();
 

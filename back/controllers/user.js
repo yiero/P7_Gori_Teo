@@ -125,8 +125,9 @@ exports.login = (req, res) => {
       if (!user) {
         return res.status(401).json({ error: 'User not found' });
       } 
-      bcrypt.compare(req.body.password, user.password) // jusque ici ça fonctionne
+      bcrypt.compare(req.body.password, user.password) 
         .then(valid => {
+          console.log(valid);
           if (!valid) {
             return res.status(401).json({ error: 'incorrect password !' });
           }
@@ -134,12 +135,12 @@ exports.login = (req, res) => {
             userId: user.id,
             token: jwt.sign(
               { userId: user.id },
-              process.env.TOKEN,
+               process.env.TOKEN,
               { expiresIn: '24h' }
             )
           });
         })
-        .catch(error => res.status(500).json({ error })); // On arrive directement ici
+        .catch(error => res.status(500).json({ error })); 
     })
     .catch(error => res.status(500).json({ error }));
 };

@@ -25,14 +25,14 @@ exports.create = (req, res) => {
 };
 
 exports.get = (req, res) =>  {
-    Topic.findAll()
+    Topic.findAll({ include: ["comments"] })
     .then(topic => res.status(200).json(topic))
     .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOne = (req, res) =>  {
     let id = req.params.id;
-    Topic.findByPk(id)
+    Topic.findByPk(id, {include: ["comments"]})
         .then(data => {
           if (data) {
             res.send(data);
