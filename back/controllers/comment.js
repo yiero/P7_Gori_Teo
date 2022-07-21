@@ -1,18 +1,19 @@
 const db = require('../models');
 const Comment = db.comment;
+const Topic = db.topic;
 
 
-exports.create = (req, res) => {
-    const comment = {
-        description: req.body.description
-    }
-    Comment.create(comment) 
+exports.create = (topicId, comment) => {
+    return Comment.create({
+        description: comment.description,
+        topicId: topicId
+    })
         .then((comment) => {
-            res.send(comment);
-         })
-         .catch((err) => {
-             console.log(err); 
-         });
+            return comment;
+        })
+        .catch((err) => {
+            (console.log("error"));
+        });
 };
 exports.get = (req, res) => {
 

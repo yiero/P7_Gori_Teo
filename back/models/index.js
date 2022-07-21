@@ -24,9 +24,9 @@ db.sequelize = sequelize;
 db.user = require("./User")(sequelize, Sequelize);
 db.topic = require("./Topic")(sequelize, Sequelize);
 db.comment = require("./Comment")(sequelize, Sequelize);
-db.topic.hasMany(db.comment, { as: "comment" });
+db.topic.hasMany(db.comment, { as: "comments" });
 db.comment.belongsTo(db.topic, {
-    foreignKey: "TopicId",
-    as: "topic",
+    foreignKey: "topicId",
+    as: "topic"
 });
 module.exports = db; 
