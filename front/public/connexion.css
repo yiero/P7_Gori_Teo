@@ -38,15 +38,7 @@ article {
     height: 700px;
 }
 
-#email {
-    border-radius: 10px;
-    border-color: #4E5166;
-    background-color: #FFD7D7;
-    padding: 5px;
-    margin-bottom: 30px;
-    margin-top: 10px;
-}
-#password {
+.form {
     border-radius: 10px;
     border-color: #4E5166;
     background-color: #FFD7D7;
@@ -64,6 +56,7 @@ article {
 }
 
 .buttonStyled {
+    cursor: pointer;
     display: flex;
     padding: 5px;
     border: 0;
