@@ -10,7 +10,9 @@ exports.create = (req, res) => {
       }
     const topic = {
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        like: 0,
+        dislike: 0,
     };
     Topic.create(topic)
         .then(data => {
@@ -93,4 +95,36 @@ exports.update = (req, res) =>  {
           message: "Error updating Topic with id=" + id
         });
       });
+};
+
+exports.like = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let topic = await Topic.findByPk(id);
+
+    for (var i = 0; i < topic.usersLiked.length; i++) {
+      if (req.auth.userId == topic.userId) {
+        topic.usersLiked.splice(i, 1)
+      };
+    };
+    for (var i = 0; i < topic.usersDisliked.length; i ++) {
+      if (req.auth.userId == topic.userId) {
+        topic.usersDisliked.splice(i, 1)
+      };
+    };
+
+    if (req.body.like == 1) {
+      topic.usersLiked.push(req.auth.userId);
+    }
+    if (req.body.like == -1) {
+      topic.usersDisliked.push(req.auth.userId);
+    }
+    topic.like = topic.usersLiked.length;
+    topic.dislike = topic.usersDisliked.length;
+    topic.save()
+      .then(() => res.status(200).json({ message: 'Interaction mise à jour !'}))
+      .catch(error => res.status(404).json({ error })); 
+  } catch {
+    error => res.status(404).json({ error });
+  }
 };

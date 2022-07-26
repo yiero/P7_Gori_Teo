@@ -23,6 +23,10 @@ db.topic = require("./Topic")(sequelize, Sequelize);
 db.comment = require("./Comment")(sequelize, Sequelize);
  //possède plusieurs
 db.topic.hasMany(db.comment, { as: "comments" });
+db.user.hasMany(db.topic, { as: "topics" });
+db.user.hasMany(db.comment, {as: "comments" });
 //appartiens à
 db.comment.belongsTo(db.topic); 
+db.topic.belongsTo(db.user);
+db.comment.belongsTo(db.user);
 module.exports = db; 

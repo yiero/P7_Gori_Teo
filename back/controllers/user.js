@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');
 
 
 exports.get = (req, res) => {
-  User.findAll()
+  User.findAll({ include: ["topics", "comments"]})
     .then(user => res.status(200).json(user))
     .catch(error => res.status(400).json({ error }));
 }; 
 
 exports.getOne = (req, res) => {
   let id = req.params.id;
-  User.findByPk(id)
+  User.findByPk(id, {include: ["topics", "comments"]})
       .then(data => {
         if (data) {
           res.send(data);

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const topicCtrl = require('../controllers/topic');
+const auth = require('../middleware/auth');
 
 
-router.post('/', topicCtrl.create);
-router.get('/', topicCtrl.get);
-router.get('/:id', topicCtrl.getOne);
-router.put('/:id', topicCtrl.update);
-router.delete('/:id', topicCtrl.delete);
+router.post('/', auth, topicCtrl.create);
+router.get('/', auth, topicCtrl.get);
+router.get('/:id', auth, topicCtrl.getOne);
+router.put('/:id', auth, topicCtrl.update);
+router.delete('/:id', auth, topicCtrl.delete);
+router.post('/:id/like', auth, topicCtrl.like);
 
 
 module.exports = router;
