@@ -30,7 +30,7 @@ db.sequelize.sync()
 app.use(bodyParser.json());
 
 app.use('/api/topic', topicRoutes);
-app.use('/api', userRoutes);
 app.use('/api/comment', commentRoutes);
+app.use('/api', userRoutes);
 
 module.exports = app;
