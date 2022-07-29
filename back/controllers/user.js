@@ -5,12 +5,14 @@ const jwt = require('jsonwebtoken');
 
 
 exports.get = (req, res) => {
+  console.log("User.get");
   User.findAll({ include: ["topics", "comments"]})
     .then(user => res.status(200).json(user))
     .catch(error => res.status(400).json({ error }));
 }; 
 
 exports.getOne = (req, res) => {
+  console.log("User.getOne");
   let id = req.params.id;
   User.findByPk(id, {include: ["topics", "comments"]})
       .then(data => {
@@ -30,6 +32,7 @@ exports.getOne = (req, res) => {
 }; 
 
 exports.update = (req, res) => {
+  console.log("User.update");
   const id = req.params.id;
   User.update(req.body, {
     where: { id: id }
@@ -53,6 +56,7 @@ exports.update = (req, res) => {
 }; 
 
 exports.create = (req, res) => {
+  console.log("User.create");
   if (!req.body.nom) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -79,6 +83,7 @@ exports.create = (req, res) => {
 };  
 
 exports.delete = (req, res) => {
+  console.log("User.delete");
   const id = req.params.id;
   User.destroy({
     where: { id: id }
@@ -102,6 +107,7 @@ exports.delete = (req, res) => {
 }; 
 
 exports.signup = (req, res) => {
+  console.log("User.signup");
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User ({
@@ -119,6 +125,7 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
+  console.log("User.login");
   const email = req.body.email;
   User.findOne({ where: { email: email } })
     .then(user => {

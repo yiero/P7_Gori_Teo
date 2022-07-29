@@ -13,6 +13,7 @@ exports.create = (req, res) => {
         description: req.body.description,
         like: 0,
         dislike: 0,
+        userId: res.locals.userId
     };
     Topic.create(topic)
         .then(data => {

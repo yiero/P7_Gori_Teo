@@ -3,9 +3,11 @@ const Comment = db.comment;
 
 
 exports.create = (req, res) => {
+    console.log("Comment.create");
     return Comment.create({
         description: req.body.description,
-        topicId: req.body.topicId
+        topicId: req.body.topicId,
+        userId: res.locals.userId
     })
         .then((comment) => {
             res.send(comment);
@@ -14,12 +16,16 @@ exports.create = (req, res) => {
             (console.log("error"));
         });
 };
- exports.get = (req, res) => {
+
+exports.get = (req, res) => {
+    console.log("Comment.get");
     Comment.findAll()
     .then(comment => res.status(200).json(comment))
     .catch(error => res.status(400).json({ error }));
 };
+
 exports.getOne = (req, res) => {
+    console.log("Comment.getOne");
     let id = req.params.id;
     Comment.findByPk(id)
         .then(data => {
@@ -38,6 +44,7 @@ exports.getOne = (req, res) => {
         });
 };
 exports.update = (req, res) => {
+    console.log("Comment.update");
     let id = req.params.id;
     Comment.update(req.body, {
         where: {id: id}
@@ -60,6 +67,7 @@ exports.update = (req, res) => {
     });
 };
 exports.delete = (req, res) => {
+    console.log("Comment.delete");
     let id = req.params.id;
     Comment.destroy({
         where: { id: id }
