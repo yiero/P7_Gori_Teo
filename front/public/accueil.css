@@ -1,0 +1,97 @@
+html {
+    height: auto;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+#title {
+    color: #FD2D01
+}
+
+#profil {
+    color: #FD2D01
+}
+
+header {
+    text-align: center;
+    margin: 10px 0px 40px 0px;
+    padding-bottom: 20px;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#buttonProfil {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: #FD2D01;
+}
+
+#buttonProfil:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+#buttonProfil:hover {
+    cursor: pointer;
+}
+
+#profil {
+    display: flex;
+    align-items: center;
+}
+
+body {
+    margin: auto;
+    max-width: 1440px;
+}
+
+#topics {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 30px 0px;
+}
+
+.topic {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    box-shadow: 2px 2px 10px 1px grey;
+    border-radius: 20px;
+    background-color: #FD2D01;
+    margin: 0px 10px 30px 10px;
+}
+.topicStyle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topicType {
+    background-color: #FFD7D7;
+    border-radius: 20px 0px 0px 20px;
+    margin: 5px;
+    padding: 5px;
+}
+.interactTopic {
+    margin: 5px;
+}
+.title {
+    color: #4E5166;
+}
+.response {
+    color: #FD2D01;
+}
+.like:hover {
+    cursor: pointer;
+}
+.dislike:hover {
+    cursor: pointer;
+}
