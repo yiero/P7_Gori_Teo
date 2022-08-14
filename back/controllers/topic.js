@@ -1,5 +1,6 @@
 const db = require('../models');
 const Topic = db.topic;
+const Like = db.like;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -11,8 +12,6 @@ exports.create = (req, res) => {
     const topic = {
         title: req.body.title,
         description: req.body.description,
-        like: 0,
-        dislike: 0,
         userId: res.locals.userId
     };
     Topic.create(topic)
@@ -28,7 +27,7 @@ exports.create = (req, res) => {
 };
 
 exports.get = (req, res) =>  {
-    Topic.findAll({ include: ["comments"] })
+    Topic.findAll({ include: ["comments", "likes"] })
     .then(topic => res.status(200).json(topic))
     .catch(error => res.status(400).json({ error }));
 };
@@ -102,26 +101,19 @@ exports.like = async (req, res) => {
   try {
     let id = req.params.id;
     let topic = await Topic.findByPk(id);
-
-    for (var i = 0; i < topic.usersLiked.length; i++) {
-      if (req.auth.userId == topic.userId) {
-        topic.usersLiked.splice(i, 1)
-      };
-    };
-    for (var i = 0; i < topic.usersDisliked.length; i ++) {
-      if (req.auth.userId == topic.userId) {
-        topic.usersDisliked.splice(i, 1)
-      };
-    };
+    console.log(id, topic, res.locals.userId)
 
     if (req.body.like == 1) {
-      topic.usersLiked.push(req.auth.userId);
+      const like = {
+        userId:res.locals.userId,
+        topicId: id,
+      };
+    Like.create(like);
     }
-    if (req.body.like == -1) {
-      topic.usersDisliked.push(req.auth.userId);
-    }
-    topic.like = topic.usersLiked.length;
-    topic.dislike = topic.usersDisliked.length;
+    
+    //select count(*) from like where topicId = xxx and like = x
+    // topic.like = topic.usersLiked.length;
+    // topic.dislike = topic.usersDisliked.length;
     topic.save()
       .then(() => res.status(200).json({ message: 'Interaction mise à jour !'}))
       .catch(error => res.status(404).json({ error })); 

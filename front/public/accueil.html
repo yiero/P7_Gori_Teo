@@ -23,12 +23,12 @@
                         <div class="topicStyle">   
                             <div class="topicType">
                                 <div class="title"><p>Premier topic !</p></div>
-                                <div class="description"><p>Bla-bla-bla je suis très fort fort uwu</br>regardez moi</p></div>
+                                <div class="description"><p>Bla-bla-bla je suis très fort fort uwu regardez moi</p></div>
                                 <div class="response"><p>0 réponses</p></div>
                             </div>
                             <div class="interactTopic">
                                 <div class="like"><p>👍</p></div>
-                                <div class="dislike"><p>😒</p></div>
+                                <div class="dislike"><p>👎</p></div>
                                 <div class="author"><p>MWA</p></div>
                             </div>
                         </div>
@@ -38,5 +38,16 @@
             <footer>
                 <div>Created by Téo Gori</div>
             </footer>
+            <script>
+                // let parent = document.querySelector("#topics");
+                // let clone = document.querySelector(".topic").cloneNode(true);
+                // parent.appendChild(clone);
+
+                for (let i = 0; i < 3; i++) {
+                    let parent = document.querySelector("#topics");
+                    let clone = document.querySelector(".topic").cloneNode(true);
+                    parent.appendChild(clone);
+                }
+            </script>
         </body>
 </html>

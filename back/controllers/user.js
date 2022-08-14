@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 exports.get = (req, res) => {
   console.log("User.get");
-  User.findAll({ include: ["topics", "comments"]})
+  User.findAll({ include: ["topics", "comments", "likes"]})
     .then(user => res.status(200).json(user))
     .catch(error => res.status(400).json({ error }));
 }; 
