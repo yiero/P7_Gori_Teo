@@ -1,3 +1,4 @@
+const { topic } = require('../models');
 const db = require('../models');
 const Topic = db.topic;
 const Like = db.like;
@@ -97,6 +98,22 @@ exports.update = (req, res) =>  {
       });
 };
 
+exports.unlike = async (req, res) => {
+  try {
+    let id = req.params.id
+    if (req.body.like == -1) {
+      Like.destroy(
+        {where: { id: id }}
+      )
+    }
+    // topic.save()
+    //   .then(() => res.status(200).json({ message: 'Like supprimé'}))
+    //   .catch(error => res.status(404).json({ error })); 
+  } catch {
+    error => res.status(404).json({ error });
+  }
+};
+
 exports.like = async (req, res) => {
   try {
     let id = req.params.id;
@@ -105,8 +122,8 @@ exports.like = async (req, res) => {
 
     if (req.body.like == 1) {
       const like = {
-        userId:res.locals.userId,
-        topicId: id,
+        userId: res.locals.userId,
+        topicId: id
       };
     Like.create(like);
     }
