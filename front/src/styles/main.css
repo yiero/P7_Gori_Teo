@@ -1,12 +1,7 @@
-html {
-    height: auto;
-    font: 1rem 'Fira Sans', sans-serif;
-}
 main {
     max-width: 800px;
     margin: auto;
 }
-
 #title {
     color: #FD2D01
 }
@@ -14,7 +9,6 @@ main {
 #profil {
     color: #FD2D01
 }
-
 header {
     text-align: center;
     margin: 10px 0px 40px 0px;
@@ -91,7 +85,7 @@ body {
     margin: 5px;
 }
 .title {
-    color: #4E5166;
+    color: #FD2D01;
 }
 .response {
     color: #FD2D01;
