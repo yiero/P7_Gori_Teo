@@ -6,8 +6,8 @@ import Main from './Main';
 
 function App() {
   return (
-    <Login/>
-    // <Signup />
+    // <Login/>
+    <Signup />
     // <Profil />
     // <Topic />
     // <Main />

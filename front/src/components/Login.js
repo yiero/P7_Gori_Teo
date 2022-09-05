@@ -13,7 +13,7 @@ function Login () {
     //      email: email,
     //      password: password
     //  }
-    //     // faire un fetch methode POST avec email et password
+    // faire un fetch methode POST avec email et password
     //}
 
     return (
@@ -23,9 +23,9 @@ function Login () {
             </div>
             <article>
                 <form>
-                    <label for="email">Email:</label>
+                    <label>Email:</label>
                     <input onChange={(e) => setEmail(e.target.value)} type="text" className="form" id="email" name="email" size="100" />
-                    <label for="password">Password:</label>
+                    <label>Password:</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" className="form" id="password" name="password" size="100" />
                     <input onClick={() => console.log(email, password)} type="submit" className="buttonStyled" value="Login"/>
                 </form>
@@ -38,6 +38,5 @@ function Login () {
     )
 }
 
-// écoute evenement OnChange email/password, utiliser useState pour les deux
 
 export default Login;

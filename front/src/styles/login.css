@@ -11,6 +11,8 @@ article {
     flex-wrap: wrap;
     flex-direction: column;
     height: 700px;
+    background-color: #F6F6F6;
+    border-radius: 500px;
 }
 
 form {
@@ -77,4 +79,5 @@ footer {
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin: 10px;
 }
