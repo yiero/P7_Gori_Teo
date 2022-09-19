@@ -106,9 +106,6 @@ exports.unlike = async (req, res) => {
         {where: { id: id }}
       )
     }
-    // topic.save()
-    //   .then(() => res.status(200).json({ message: 'Like supprimé'}))
-    //   .catch(error => res.status(404).json({ error })); 
   } catch {
     error => res.status(404).json({ error });
   }

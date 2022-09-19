@@ -3,11 +3,41 @@ import { useState } from 'react';
 import '../styles/signup.css';
 
 function Signup () {
-    const [email, setEmail] = useState(0)
-    const [password, setPassword] = useState(0)
-    const [pseudo, setPseudo] = useState(0)
-    const [nom, setNom] = useState(0)
-    const [prenom, setPrenom] = useState(0)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [pseudo, setPseudo] = useState("")
+    const [nom, setNom] = useState("")
+    const [prenom, setPrenom] = useState("")
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        const body = {
+            email: email,
+            password: password,
+            pseudo: pseudo,
+            nom: nom,
+            prenom: prenom
+        }
+
+        fetch("http://localhost:3000/api/signup", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.status;
+            }
+        })
+        .then(function(value) {
+            console.log(value);
+            // TODO: rediriger vers Login
+        })
+    }
 
     return (
         <React.Fragment>
@@ -15,7 +45,7 @@ function Signup () {
                 <h1 id="title">Groupomania</h1>
             </div>
             <article>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label>Email:</label>
                     <input onChange={(e) => setEmail(e.target.value)}type="text" className="form" id="email" name="email" size="100"/>
                     <label>Password:</label>

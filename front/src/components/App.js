@@ -7,10 +7,10 @@ import Main from './Main';
 function App() {
   return (
     // <Login/>
-    <Signup />
+    // <Signup />
     // <Profil />
     // <Topic />
-    // <Main />
+    <Main />
   );
 }
 
