@@ -6,11 +6,11 @@ import Main from './Main';
 
 function App() {
   return (
-    // <Login/>
+    <Login/>
     // <Signup />
     // <Profil />
     // <Topic />
-    <Main />
+    // <Main />
   );
 }
 

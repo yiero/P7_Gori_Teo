@@ -5,6 +5,7 @@ import '../styles/main.css';
 function Main () {
     const [ title, updateTitle ] = useState("")
     const [ description, updateDescription ] = useState("")
+    const [ pseudo, updatePseudo ] = useState("")
 
     //à la fin, remplacer variable token dur => localStorage getItem (token)
     useEffect(() => {
@@ -14,20 +15,33 @@ function Main () {
         headers: { 
             'Authorization': "BEARER " + token
         }
-    })
-        .then(function(res) {
-            if (res.ok) {
-                return res.json();
+        })
+            .then(function(res) {
+                if (res.ok) {
+                    return res.json();
+                }
+            })
+            .then(function(value) {
+                updateTitle(value[0].title);
+                updateDescription(value[0].description)
+            })
+
+        fetch ("http://localhost:3000/api/1", {
+            method: "GET",
+            headers: {
+
             }
         })
-        .then(function(value) {
-            updateTitle(value[0].title);
-            updateDescription(value[0].description)
-        })
+            .then(function(res) {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(function(user) {
+                updatePseudo(user.pseudo);
+            })
     })
 
-    // double fetch possible ? Pour récupérer le pseudo et afficher dans "author" 
-    // then(function(user) => user.pseudo)
     return (
         <React.Fragment>
             <header>
@@ -52,7 +66,7 @@ function Main () {
                             <div className="interactTopic">
                                 <div className="like"><p>👍</p></div>
                                 <div className="dislike"><p>👎</p></div>
-                                <div className="author"><p>MWA</p></div>
+                                <div className="author"><p>{pseudo}</p></div>
                             </div>
                         </div>
                     </div>
