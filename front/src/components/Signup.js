@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import '../styles/signup.css';
+import { Link } from 'react-router-dom';
 
 function Signup () {
     const [email, setEmail] = useState("")
@@ -35,14 +36,14 @@ function Signup () {
         })
         .then(function(value) {
             console.log(value);
-            // TODO: rediriger vers Login
+            window.location.href = window.location.protocol + "//" + window.location.host + '/';
         })
     }
 
     return (
         <React.Fragment>
             <div className="title">
-                <h1 id="title">Groupomania</h1>
+                <Link to="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
             </div>
             <article>
                 <form onSubmit={handleSubmit}>

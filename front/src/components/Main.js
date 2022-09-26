@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/main.css';
 
 function Main () {
@@ -33,10 +34,13 @@ function Main () {
             <header>
                 <div id="header">
                     <div id="title">
-                        <h1>Groupomania</h1>
+                        <Link to ="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
                     </div>
-                    <div id="profil">
-                        <a href="./Profil.js"><button id="buttonProfil" type="button">Profil</button></a>
+                    <div className='nav'>
+                        <Link to="/profil"><button className="buttonProfil" type="button">Profil</button></Link>
+                    </div>
+                    <div className='nav'>
+                        <Link to ="/"><button className="buttonProfil" type="button">Deconnexion</button></Link>
                     </div>
                 </div>
             </header>

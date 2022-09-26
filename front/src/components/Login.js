@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/login.css';
 
 function Login () {
@@ -30,15 +31,15 @@ function Login () {
             }
         })
         .then(function(value) {
-            console.log(value.token);
             localStorage.setItem('token', value.token);
+            window.location.href = window.location.protocol + "//" + window.location.host + '/main';
         })
     }
 
     return (
         <React.Fragment>
             <div className="title">
-                <h1>Groupomania</h1>
+                <Link to="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
             </div>
             <article>
                 <form onSubmit={handleSubmit}>
@@ -48,7 +49,7 @@ function Login () {
                     <input onChange={(e) => setPassword(e.target.value)} type="password" className="form" id="password" name="password" size="100" />
                     <input type="submit" className="buttonStyled" value="Login"/>
                 </form>
-                <a href="./Signup.js" id="create">No account ? click here ! </a>
+                <Link to="/signup" id="create">No account ? click here !</Link>
             </article>
             <footer>
                 <div>Created by Téo Gori</div>

@@ -2,9 +2,13 @@
     text-align: center;
     align-items: center;
     height: auto;
-    margin: auto;
+    margin: auto; 
+}
+h1 {
+    text-decoration: none;
     color: #FD2D01;
 }
+
 article {
     display: flex;
     justify-content: center;

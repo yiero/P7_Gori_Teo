@@ -6,9 +6,6 @@ main {
     color: #FD2D01
 }
 
-#profil {
-    color: #FD2D01
-}
 header {
     text-align: center;
     margin: 10px 0px 40px 0px;
@@ -20,7 +17,7 @@ header {
     justify-content: space-between;
 }
 
-#buttonProfil {
+.buttonProfil {
     border: 0;
     line-height: 2.5;
     padding: 0 20px;
@@ -32,18 +29,19 @@ header {
     background-color: #FD2D01;
 }
 
-#buttonProfil:active {
+.buttonProfil:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
                 inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
 
-#buttonProfil:hover {
+.buttonProfil:hover {
     cursor: pointer;
 }
 
-#profil {
+.nav {
     display: flex;
     align-items: center;
+    color: #FD2D01
 }
 
 body {
