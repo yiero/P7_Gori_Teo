@@ -9,7 +9,7 @@ function Main () {
 
     //à la fin, remplacer variable token dur => localStorage getItem (token)
     useEffect(() => {
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2MzU5MTY3MywiZXhwIjoxNjYzNjc4MDczfQ.NSIYlq19wutTuQq34zIcmoEOz2EwZzMIDKAhUb9v17o"
+        let token = localStorage.getItem('token');
         fetch ("http://localhost:3000/api/topic", {
         method: "GET",
         headers: { 
@@ -24,21 +24,7 @@ function Main () {
             .then(function(value) {
                 updateTitle(value[0].title);
                 updateDescription(value[0].description)
-            })
-
-        fetch ("http://localhost:3000/api/1", {
-            method: "GET",
-            headers: {
-
-            }
-        })
-            .then(function(res) {
-                if (res.ok) {
-                    return res.json()
-                }
-            })
-            .then(function(user) {
-                updatePseudo(user.pseudo);
+                updatePseudo(value[0].user.pseudo); 
             })
     })
 

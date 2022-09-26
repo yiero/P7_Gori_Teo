@@ -22,12 +22,14 @@ db.user = require("./User")(sequelize, Sequelize);
 db.topic = require("./Topic")(sequelize, Sequelize);
 db.comment = require("./Comment")(sequelize, Sequelize);
 db.like = require("./Like")(sequelize, Sequelize);
+
  //possède plusieurs
 db.topic.hasMany(db.comment, { as: "comments" });
 db.user.hasMany(db.topic, { as: "topics" });
 db.user.hasMany(db.comment, {as: "comments" });
 db.user.hasMany(db.like);
 db.topic.hasMany(db.like);
+
 //appartiens à
 db.comment.belongsTo(db.topic); 
 db.topic.belongsTo(db.user);

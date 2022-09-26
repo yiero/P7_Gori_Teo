@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 };
 
 exports.get = (req, res) =>  {
-    Topic.findAll({ include: ["comments", "likes"] })
+    Topic.findAll({ include: ["comments", "likes", "user"] })
     .then(topic => res.status(200).json(topic))
     .catch(error => res.status(400).json({ error }));
 };
