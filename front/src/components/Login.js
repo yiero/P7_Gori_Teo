@@ -36,6 +36,8 @@ function Login () {
         })
     }
 
+    // condition => si les champs Email ET password = null alors "griser" bouton Login
+
     return (
         <React.Fragment>
             <div className="title">

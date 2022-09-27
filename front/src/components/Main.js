@@ -7,8 +7,8 @@ function Main () {
     const [ title, updateTitle ] = useState("")
     const [ description, updateDescription ] = useState("")
     const [ pseudo, updatePseudo ] = useState("")
+    const [ topics, updateTopics ] = useState([]);
 
-    //à la fin, remplacer variable token dur => localStorage getItem (token)
     useEffect(() => {
         let token = localStorage.getItem('token');
         fetch ("http://localhost:3000/api/topic", {
@@ -26,6 +26,7 @@ function Main () {
                 updateTitle(value[0].title);
                 updateDescription(value[0].description)
                 updatePseudo(value[0].user.pseudo); 
+                updateTopics(value);
             })
     })
 
@@ -46,20 +47,22 @@ function Main () {
             </header>
             <main>
                 <div id="topics">
-                    <div className="topic"> 
-                        <div className="topicStyle">   
-                            <div className="topicType">
-                                <div className="title"><p>{title}</p></div>
-                                <div className="description"><p>{description}</p></div>
-                                <div className="response"><p>0 réponses</p></div>
-                            </div>
-                            <div className="interactTopic">
-                                <div className="like"><p>👍</p></div>
-                                <div className="dislike"><p>👎</p></div>
-                                <div className="author"><p>{pseudo}</p></div>
+                    {topics.map((value, index) =>(
+                        <div className="topic"> 
+                            <div className="topicStyle">   
+                                <div className="topicType">
+                                    <div className="title"><p key={`${value}-${index}`}>{value.title}</p></div>
+                                    <div className="description"><p key={`${value}-${index}`}>{value.description}</p></div>
+                                    <div className="response"><p key={`${value}-${index}`}>{value.comments.length} réponse(s)</p></div>
+                                </div>
+                                <div className="interactTopic">
+                                    <div className="like"><p>👍 {value.likes.length}</p></div>
+                                    <div className="dislike"><p>👎</p></div>
+                                    <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
             </main>
             <footer>
