@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import '../styles/main.css';
 
 function Main () {
-    const [ title, updateTitle ] = useState("")
-    const [ description, updateDescription ] = useState("")
-    const [ pseudo, updatePseudo ] = useState("")
     const [ topics, updateTopics ] = useState([]);
 
     useEffect(() => {
@@ -23,13 +20,10 @@ function Main () {
                 }
             })
             .then(function(value) {
-                updateTitle(value[0].title);
-                updateDescription(value[0].description)
-                updatePseudo(value[0].user.pseudo); 
                 updateTopics(value);
             })
     })
-
+ 
     return (
         <React.Fragment>
             <header>
