@@ -35,7 +35,7 @@ exports.get = (req, res) =>  {
 
 exports.getOne = (req, res) =>  {
     let id = req.params.id;
-    Topic.findByPk(id, {include: ["comments"]})
+    Topic.findByPk(id, {include: ["comments", "likes"]})
         .then(data => {
           if (data) {
             res.send(data);
@@ -100,11 +100,13 @@ exports.update = (req, res) =>  {
 
 exports.unlike = async (req, res) => {
   try {
-    let id = req.params.id
-    if (req.body.like == -1) {
+    if (topic !== null) {
       Like.destroy(
-        {where: { id: id }}
+        { where: { userId: res.locals.userId } }
       )
+     Like.save()
+      .then(() => res.status(200).json({ message: 'Suppression effectuée !'}))
+      .catch(error => res.status(404).json({ error }));
     }
   } catch {
     error => res.status(404).json({ error });
@@ -117,20 +119,15 @@ exports.like = async (req, res) => {
     let topic = await Topic.findByPk(id);
     console.log(id, topic, res.locals.userId)
 
-    if (req.body.like == 1) {
+    if (topic !== null) {
       const like = {
         userId: res.locals.userId,
         topicId: id
       };
-    Like.create(like);
-    }
-    
-    //select count(*) from like where topicId = xxx and like = x
-    // topic.like = topic.usersLiked.length;
-    // topic.dislike = topic.usersDisliked.length;
-    topic.save()
+    Like.create(like)
       .then(() => res.status(200).json({ message: 'Interaction mise à jour !'}))
-      .catch(error => res.status(404).json({ error })); 
+      .catch(error => res.status(404).json({ error }));
+    }
   } catch {
     error => res.status(404).json({ error });
   }

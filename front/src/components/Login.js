@@ -32,11 +32,10 @@ function Login () {
         })
         .then(function(value) {
             localStorage.setItem('token', value.token);
-            window.location.href = window.location.protocol + "//" + window.location.host + '/main';
+            window.location.href = window.location.protocol + "//" + window.location.host + '/main'; // peut-être utiliser useNavigate 
         })
     }
 
-    // condition => si les champs Email ET password = null alors "griser" bouton Login
 
     return (
         <React.Fragment>
@@ -46,9 +45,9 @@ function Login () {
             <article>
                 <form onSubmit={handleSubmit}>
                     <label>Email:</label>
-                    <input onChange={(e) => setEmail(e.target.value)} type="text" className="form" id="email" name="email" size="100" />
+                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form" id="email" name="email" size="100" required/>
                     <label>Password:</label>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" className="form" id="password" name="password" size="100" />
+                    <input onChange={(e) => setPassword(e.target.value)} type="password" className="form" id="password" name="password" size="100" required/>
                     <input type="submit" className="buttonStyled" value="Login"/>
                 </form>
                 <Link to="/signup" id="create">No account ? click here !</Link>

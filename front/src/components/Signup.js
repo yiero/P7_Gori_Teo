@@ -48,15 +48,15 @@ function Signup () {
             <article>
                 <form onSubmit={handleSubmit}>
                     <label>Email:</label>
-                    <input onChange={(e) => setEmail(e.target.value)}type="text" className="form" id="email" name="email" size="100"/>
+                    <input onChange={(e) => setEmail(e.target.value)}type="email" className="form" id="email" name="email" size="100" required/>
                     <label>Password:</label>
-                    <input onChange={(e) => setPassword(e.target.value)}type="password" className="form" id="password" name="password" size="100"/>
+                    <input onChange={(e) => setPassword(e.target.value)}type="password" className="form" id="password" name="password" size="100" required/>
                     <label>Pseudo:</label>
-                    <input onChange={(e) => setPseudo(e.target.value)}type="text" className="form" id="pseudo" name="pseudo" size="100"/>
+                    <input onChange={(e) => setPseudo(e.target.value)}type="text" className="form" id="pseudo" name="pseudo" size="100" required/>
                     <label>Nom:</label>
-                    <input onChange={(e) => setNom(e.target.value)}type="text" className="form" id="nom" name="nom" size="100"/>
+                    <input onChange={(e) => setNom(e.target.value)}type="text" className="form" id="nom" name="nom" size="100" required/>
                     <label>Prenom:</label>
-                    <input onChange={(e) => setPrenom(e.target.value)}type="text" className="form" id="prenom" name="prenom" size="100"/>
+                    <input onChange={(e) => setPrenom(e.target.value)}type="text" className="form" id="prenom" name="prenom" size="100" required/>
                     <input onClick={() => console.log(email,password,pseudo,nom,prenom)} type="submit" className="buttonStyled" value="Signup"/>
                 </form>
             </article>

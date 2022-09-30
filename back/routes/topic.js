@@ -11,7 +11,7 @@ router.put('/:id', auth, topicCtrl.update);
 router.delete('/:id', auth, topicCtrl.delete);
 
 router.post('/:id/like', auth, topicCtrl.like);
-router.delete('/:id/unlike', auth, topicCtrl.unlike);
+router.delete('/:id/like', auth, topicCtrl.unlike);
 
 
 module.exports = router;
