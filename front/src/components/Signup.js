@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../styles/signup.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Signup () {
     const [email, setEmail] = useState("")
@@ -9,6 +10,7 @@ function Signup () {
     const [pseudo, setPseudo] = useState("")
     const [nom, setNom] = useState("")
     const [prenom, setPrenom] = useState("")
+    const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -36,7 +38,7 @@ function Signup () {
         })
         .then(function(value) {
             console.log(value);
-            window.location.href = window.location.protocol + "//" + window.location.host + '/';
+            navigate("/");
         })
     }
 

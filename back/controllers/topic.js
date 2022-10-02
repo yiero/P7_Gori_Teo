@@ -104,9 +104,9 @@ exports.unlike = async (req, res) => {
       Like.destroy(
         { where: { userId: res.locals.userId } }
       )
-     Like.save()
-      .then(() => res.status(200).json({ message: 'Suppression effectuée !'}))
-      .catch(error => res.status(404).json({ error }));
+      res.send({
+        message: "Unlike successfully !"
+      });
     }
   } catch {
     error => res.status(404).json({ error });

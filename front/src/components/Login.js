@@ -2,10 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/login.css';
+import { useNavigate } from "react-router-dom";
 
 function Login () {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -32,7 +34,7 @@ function Login () {
         })
         .then(function(value) {
             localStorage.setItem('token', value.token);
-            window.location.href = window.location.protocol + "//" + window.location.host + '/main'; // peut-être utiliser useNavigate 
+            navigate("/main");
         })
     }
 

@@ -23,6 +23,19 @@ function Main () {
                 updateTopics(value);
             })
     })
+
+    function like() {
+        
+        fetch ("http://localhost:3000/api/topic/2/like", {
+            method: "POST",
+        })
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            }
+        })
+        // condtion if (res.locals.userId === userId) alors exécuter fetch pour Unlike, sinon fetch Like
+    }
  
     return (
         <React.Fragment>
@@ -32,10 +45,10 @@ function Main () {
                         <Link to ="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
                     </div>
                     <div className='nav'>
-                        <Link to="/profil"><button className="buttonProfil" type="button">Profil</button></Link>
+                        <Link to="/profil"><button className="buttonProfilCreate" type="button">Profil</button></Link>
                     </div>
                     <div className='nav'>
-                        <Link to ="/"><button className="buttonProfil" type="button">Deconnexion</button></Link>
+                        <Link to ="/"><button className="buttonProfilCreate" type="button">Deconnexion</button></Link>
                     </div>
                 </div>
             </header>
@@ -50,13 +63,21 @@ function Main () {
                                     <div className="response"><p key={`${value}-${index}`}>{value.comments.length} réponse(s)</p></div>
                                 </div>
                                 <div className="interactTopic">
-                                    <div className="like"><p>👍 {value.likes.length}</p></div>
+                                    <div onClick={like} className="like"><p>👍 {value.likes.length}</p></div>
                                     {/* <div className="dislike"><p>👎</p></div> */}
                                     <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
                                 </div>
                             </div>
                         </div>
                     ))}
+                </div>
+                <div id="create_topic"><h3>Rejoins nous en créant ton topic !</h3></div>
+                <div id="form">
+                    <form className="newTopic">
+                        <input type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
+                        <textarea type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
+                        <input type="submit" value="Créer" className="buttonProfilCreate"></input>
+                    </form>        
                 </div>
             </main>
             <footer>

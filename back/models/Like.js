@@ -3,11 +3,13 @@ module.exports = (sequelize, Datatypes) => {
     const Like = sequelize.define("like", {
         
     }, 
-    // {
-    //     uniqueKeys : {
-            
-    //     }
-    // }
+    {
+        uniqueKeys : {
+            like_unique: {
+                fields: ['userId', 'topicId']
+            }
+        }
+    }
     )
     return Like;
 }
