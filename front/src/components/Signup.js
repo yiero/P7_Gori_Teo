@@ -62,9 +62,6 @@ function Signup () {
                     <input onClick={() => console.log(email,password,pseudo,nom,prenom)} type="submit" className="buttonStyled" value="Signup"/>
                 </form>
             </article>
-            <footer>
-                <div>Created by Téo Gori</div>
-            </footer>
         </React.Fragment>
     )
 }

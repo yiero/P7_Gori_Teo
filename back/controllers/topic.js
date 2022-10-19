@@ -35,7 +35,7 @@ exports.get = (req, res) =>  {
 
 exports.getOne = (req, res) =>  {
     let id = req.params.id;
-    Topic.findByPk(id, {include: ["comments", "likes"]})
+    Topic.findByPk(id, {include: ["comments", "likes", "user"]})
         .then(data => {
           if (data) {
             res.send(data);
@@ -102,7 +102,7 @@ exports.unlike = async (req, res) => {
   try {
     if (topic !== null) {
       Like.destroy(
-        { where: { userId: res.locals.userId } }
+        { where: { userId: res.locals.userId, topicId: req.params.id } }
       )
       res.send({
         message: "Unlike successfully !"
@@ -115,7 +115,7 @@ exports.unlike = async (req, res) => {
 
 exports.like = async (req, res) => {
   try {
-    let id = req.params.id;
+    let id = parseInt(req.params.id);
     let topic = await Topic.findByPk(id);
     console.log(id, topic, res.locals.userId)
 
@@ -129,6 +129,6 @@ exports.like = async (req, res) => {
       .catch(error => res.status(404).json({ error }));
     }
   } catch {
-    error => res.status(404).json({ error });
+    error => res.status(500).json({ error });
   }
 };

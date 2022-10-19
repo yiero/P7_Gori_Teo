@@ -32,7 +32,7 @@ function Login () {
                 return res.status;
             }
         })
-        .then(function(value) {
+        .then(function(value) { 
             localStorage.setItem('token', value.token);
             navigate("/main");
         })
@@ -54,9 +54,6 @@ function Login () {
                 </form>
                 <Link to="/signup" id="create">No account ? click here !</Link>
             </article>
-            <footer>
-                <div>Created by Téo Gori</div>
-            </footer>
         </React.Fragment>
     )
 }

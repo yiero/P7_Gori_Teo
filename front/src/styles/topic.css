@@ -1,0 +1,43 @@
+#main {
+    background-color: #e9e9e9;
+    border-radius: 50px;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#topicTitle {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 0px;
+}
+
+#topicDescription {
+    display: flex;
+    font-size: 1.5em;
+    background-color: white;
+    border: 0.1rem solid;
+    border-color: rgb(204, 204, 204);
+    margin: 10px;
+    padding: 20px 20px;
+}
+.updateTopics {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+#interactButton {
+    display: flex;
+    justify-content: flex-end;
+}
+.interact {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    max-width: 30px;
+    margin: 10px;
+}
+#topicListes {
+    margin: 10px 0px 30px 10px;
+}

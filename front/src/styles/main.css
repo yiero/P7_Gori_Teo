@@ -3,20 +3,6 @@ main {
     margin: auto;
 }
 
-#create_topic {
-    text-align: center;
-    color: #4E5166
-}
-
-#form {
-    background-color: #ffecec;
-    border-radius: 500px;
-}
-
-#title {
-    color: #FD2D01
-}
-
 header {
     text-align: center;
     margin: 10px 0px 40px 0px;
@@ -57,9 +43,37 @@ header {
     color: #FD2D01
 }
 
+#title {
+    color: #FD2D01
+}
+
 body {
     margin: auto;
     max-width: 1440px;
+}
+
+#refreshButton {
+    cursor: pointer;
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: #FD2D01;
+}
+
+#refreshButton:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+#refresh {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px;
 }
 
 #topics {
@@ -68,13 +82,25 @@ body {
     justify-content: center;
     flex-direction: column;
     padding: 0px 0px 30px 0px;
+    animation: topics 1000ms ease-in-out; 
+    animation-fill-mode: forwards;
 }
+
+@keyframes topics {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
 
 .topic {
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
-    flex-direction: column;
     box-shadow: 2px 2px 10px 1px grey;
     border-radius: 20px;
     background-color: #4E5166;
@@ -91,9 +117,13 @@ body {
     margin: 5px;
     padding: 5px;
     flex-grow: 1;
+    width: 700px;
 }
 .interactTopic {
     margin: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
 }
 .title {
     color: white;
@@ -113,6 +143,32 @@ body {
 input {
     margin: 10px;
 }
+
+#create_topic {
+    text-align: center;
+    color: #4E5166
+}
+
+#form {
+    background-color: #ffecec;
+    border-radius: 500px;
+    margin-bottom: 100px;
+}
+
+#form, #create_topic {
+    animation: createTopic 1000ms ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes createTopic {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
 textarea {
     width: 50%;
     height: 6.875rem;
@@ -121,3 +177,13 @@ textarea {
     border-color: #4E5166;
     border-radius: 10px;
 }
+.title {
+    color: white;
+}
+.description {
+    color: black;
+}
+.like {
+    color: white;
+}
+

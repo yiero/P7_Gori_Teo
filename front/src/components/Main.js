@@ -2,9 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/main.css';
+import Header from './Header'
 
 function Main () {
     const [ topics, updateTopics ] = useState([]);
+    const [ title, setTitle ] = useState("");
+    const [ description, setDescription ] = useState("");
 
     useEffect(() => {
         let token = localStorage.getItem('token');
@@ -22,67 +25,99 @@ function Main () {
             .then(function(value) {
                 updateTopics(value);
             })
-    })
+    }, [])
 
-    function like() {
-        
-        fetch ("http://localhost:3000/api/topic/2/like", {
+    function handleLike() {
+        let token = localStorage.getItem('token');
+        let topicId;
+        let method;
+        topicId = 2
+        method = "POST"
+
+        // déterminer le post actuel (array des topics)
+
+        fetch ("http://localhost:3000/api/topic/1/like", {
             method: "POST",
+            headers: { 
+                'Authorization': "BEARER " + token
+            }
         })
         .then(function(res) {
             if (res.ok) {
                 return res.json();
             }
         })
+        window.location.reload();
         // condtion if (res.locals.userId === userId) alors exécuter fetch pour Unlike, sinon fetch Like
     }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        let token = localStorage.getItem('token');
+        const body = {
+            title: title,
+            description: description
+        }
+
+        fetch("http://localhost:3000/api/topic", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': "BEARER " + token
+            },
+            body: JSON.stringify(body)
+        })
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.status;
+            }
+        })
+    }
+
+    function refreshPages() {
+        window.location.reload();
+    }
+
+
  
     return (
         <React.Fragment>
-            <header>
-                <div id="header">
-                    <div id="title">
-                        <Link to ="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
-                    </div>
-                    <div className='nav'>
-                        <Link to="/profil"><button className="buttonProfilCreate" type="button">Profil</button></Link>
-                    </div>
-                    <div className='nav'>
-                        <Link to ="/"><button className="buttonProfilCreate" type="button">Deconnexion</button></Link>
-                    </div>
-                </div>
-            </header>
+            <Header/>
             <main>
+                <div onClick={refreshPages} id="refresh">
+                    <input type="button" value="Actualiser" id="refreshButton"/>
+                </div>
                 <div id="topics">
                     {topics.map((value, index) =>(
-                        <div className="topic"> 
-                            <div className="topicStyle">   
-                                <div className="topicType">
-                                    <div className="title"><p key={`${value}-${index}`}>{value.title}</p></div>
-                                    <div className="description"><p key={`${value}-${index}`}>{value.description}</p></div>
-                                    <div className="response"><p key={`${value}-${index}`}>{value.comments.length} réponse(s)</p></div>
-                                </div>
-                                <div className="interactTopic">
-                                    <div onClick={like} className="like"><p>👍 {value.likes.length}</p></div>
-                                    {/* <div className="dislike"><p>👎</p></div> */}
-                                    <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
+                            <div className="topic"> 
+                                <div className="topicStyle"> 
+                                    <Link to={"/topic" + "/" + value.id} style={{ textDecoration: 'none' }}>  
+                                        <div className="topicType">
+                                            <div className="title"><p key={`${value}-${index}`}>{value.title}</p></div>
+                                            <div className="description"><p key={`${value}-${index}`}>{value.description}</p></div>
+                                            <div className="response"><p key={`${value}-${index}`}>{value.comments.length} réponse(s)</p></div>
+                                        </div>
+                                    </Link>
+                                    <div className="interactTopic">
+                                        <div onClick={handleLike} className="like"><p>👍 {value.likes.length}</p></div>
+                                        {/* <div className="dislike"><p>👎</p></div> */}
+                                        <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     ))}
                 </div>
                 <div id="create_topic"><h3>Rejoins nous en créant ton topic !</h3></div>
                 <div id="form">
-                    <form className="newTopic">
-                        <input type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
-                        <textarea type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
+                    <form onSubmit={handleSubmit} className="newTopic">
+                        <input onChange={(e) => setTitle(e.target.value)} type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
+                        <textarea onChange={(e) => setDescription(e.target.value)} type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
                         <input type="submit" value="Créer" className="buttonProfilCreate"></input>
                     </form>        
                 </div>
             </main>
-            <footer>
-                <div>Created by Téo Gori</div>
-            </footer>
         </React.Fragment>
     )
 }
