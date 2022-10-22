@@ -34,6 +34,7 @@ function Login () {
         })
         .then(function(value) { 
             localStorage.setItem('token', value.token);
+            localStorage.setItem('userId', value.userId);
             navigate("/main");
         })
     }
