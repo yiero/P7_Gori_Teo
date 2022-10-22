@@ -1,0 +1,12 @@
+#footerStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerName {
+    margin: 20px;
+}
+iconify-icon {
+    color: red;
+}
