@@ -24,7 +24,7 @@ db.comment = require("./Comment")(sequelize, Sequelize);
 db.like = require("./Like")(sequelize, Sequelize);
 
  //possède plusieurs
-db.topic.hasMany(db.comment, { as: "comments" });
+db.topic.hasMany(db.comment);
 db.user.hasMany(db.topic, { as: "topics" });
 db.user.hasMany(db.comment, {as: "comments" });
 db.user.hasMany(db.like);

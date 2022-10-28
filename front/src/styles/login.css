@@ -19,7 +19,7 @@ article {
     border-radius: 500px;
 }
 
-form {
+#formLoginSignup {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

@@ -10,13 +10,47 @@
 #topicTitle {
     justify-content: center;
     display: flex;
-    margin-bottom: 0px;
+    margin-bottom: 25px;
+}
+
+#inputTitle {
+    font-size: 24px;
+    max-width: 20em;
+    border-radius: 10px;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    padding: 10px 10px;
+}
+
+#inputTitleFlex {
+    display: flex;
+    justify-content: center;
 }
 
 #topicDescription {
     font-size: 1.5em;
     padding: 20px 20px;
 }
+
+#inputDescription {
+    margin: 0px;
+    font-size: 1.5em;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    width: 90%;
+    padding: 20px 20px;
+}
+
+#submitModification {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
 .updateTopics {
     display: flex;
     justify-content: flex-end;
@@ -25,6 +59,7 @@
 #interactButton {
     display: flex;
     justify-content: flex-end;
+    margin: 20px 20px 0px;
 }
 .interact {
     display: flex;

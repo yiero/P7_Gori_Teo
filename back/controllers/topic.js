@@ -2,6 +2,8 @@ const { topic } = require('../models');
 const db = require('../models');
 const Topic = db.topic;
 const Like = db.like;
+const User = db.user;
+const Comment = db.comment;
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -28,14 +30,29 @@ exports.create = (req, res) => {
 };
 
 exports.get = (req, res) =>  {
-    Topic.findAll({ include: ["comments", "likes", "user"] })
+    Topic.findAll({ include: 
+                    [{ model: Comment, 
+                      include:[{model: User,
+                      attributes: ["id","pseudo"]}]}, 
+                    { model: Like,
+                        include:[{model: User,
+                        attributes: ["id","pseudo"]}]}, 
+                    { model: User }] })
     .then(topic => res.status(200).json(topic))
     .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOne = (req, res) =>  {
     let id = req.params.id;
-    Topic.findByPk(id, {include: ["comments", "likes", "user"]})
+    Topic.findByPk(id, {include: 
+            [{ model: Comment, 
+                include:[{model: User,
+                attributes: ["id","pseudo"]}
+            ]}, 
+            { model: Like,
+                include:[{model: User,
+                attributes: ["id","pseudo"]}]}, 
+            { model: User }]})
         .then(data => {
           if (data) {
             res.send(data);

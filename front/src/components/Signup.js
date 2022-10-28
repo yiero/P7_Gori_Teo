@@ -48,7 +48,7 @@ function Signup () {
                 <Link to="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
             </div>
             <article>
-                <form onSubmit={handleSubmit}>
+                <form id="formLoginSignup" onSubmit={handleSubmit}>
                     <label>Email:</label>
                     <input onChange={(e) => setEmail(e.target.value)}type="email" className="form" id="email" name="email" size="100" required/>
                     <label>Password:</label>

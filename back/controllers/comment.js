@@ -19,7 +19,7 @@ exports.create = (req, res) => {
 
 exports.get = (req, res) => {
     console.log("Comment.get");
-    Comment.findAll()
+    Comment.findAll({include: ["user"]})
     .then(comment => res.status(200).json(comment))
     .catch(error => res.status(400).json({ error }));
 };
@@ -27,7 +27,7 @@ exports.get = (req, res) => {
 exports.getOne = (req, res) => {
     console.log("Comment.getOne");
     let id = req.params.id;
-    Comment.findByPk(id)
+    Comment.findByPk(id, {include: ["user"]})
         .then(data => {
             if (data) {
                 res.send(data);

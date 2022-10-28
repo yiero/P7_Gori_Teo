@@ -10,7 +10,7 @@ function Header() {
         <header>
                 <div id="header">
                     <div id="title">
-                        <Link to ="/" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
+                        <Link to ="/main" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
                     </div>
                     <div className='nav'>
                         <Link to="/profil"><button className="buttonProfilCreate" type="button">Profil</button></Link>

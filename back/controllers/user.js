@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+
 exports.get = (req, res) => {
   console.log("User.get");
   User.findAll({ include: ["topics", "comments", "likes"]})

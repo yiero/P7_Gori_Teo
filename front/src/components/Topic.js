@@ -11,11 +11,10 @@ function Topic () {
     let token = localStorage.getItem('token');
     const [ topic, setTopic ] = useState("");
     const navigate = useNavigate();
-    let [ isEditing, setEditing ] = useState("");
+    let [ isEditing, setEditing ] = useState(false);
 
     function edit () {
-        setEditing = isEditing("false");
-        console.log(edit());
+        setEditing(!isEditing);
     }
 
     useEffect(() => {
@@ -53,7 +52,7 @@ function Topic () {
 
     function comments () {
         for (let i = 0; i < topic.comments.length; i++) {
-            console.log(topic.comments[i].description);
+            console.log(topic.comments[i].user.pseudo); 
         }  
     }
 
@@ -64,20 +63,25 @@ function Topic () {
         <React.Fragment>
            <Header />
            <main id="main">
-                <h2 id="topicTitle">{topic.title}</h2>
                 <div id="interactButton">
                     <button onClick={(edit)}className="interact">✏</button>
                     <button onClick={(deleteTopic)}className="interact">❌</button>
                 </div>
-                <div id="pseudoDescription">
-                    <div id="topicDescription">{topic.description}</div>
-                    { topic.user && <div id="pseudoTopic">{topic.user.pseudo}</div> }
-                </div>
-                <div className="updateTopics">Crée le {createDate}</div>
-                <div className="updateTopics">Mis à jour le {updateDate}</div>
+                <form>
+                    { !isEditing && <h2 id="topicTitle">{topic.title}</h2> }
+                    { isEditing && <div id="inputTitleFlex"><input id="inputTitle" type="text" placeholder="Modifiez le titre"></input></div>}
+                    <div id="pseudoDescription">
+                        { !isEditing && <div id="topicDescription">{topic.description}</div>}
+                        { isEditing && <input id="inputDescription" type="text" placeholder="Modifiez le texte"></input>}
+                        { topic.user && <div id="pseudoTopic">{topic.user.pseudo}</div> }
+                    </div>
+                    { isEditing && <div id="submitModification"><button className="buttonProfilCreate" type="button">Modifier</button></div>}
+                    <div className="updateTopics">Crée le {createDate}</div>
+                    <div className="updateTopics">Mis à jour le {updateDate}</div>
+                </form>
                 <div id="interaction">
                     { topic.likes && <button className="buttonInteractTopic">💗 {topic.likes.length}</button> }
-                    { topic.comments &&<button onClick={(comments)}className="buttonInteractTopic">💬 {topic.comments.length}</button> }
+                    { topic.comments && <button onClick={(comments)}className="buttonInteractTopic">💬 {topic.comments.length}</button> }
                 </div>
                 <div id="topicListes">
                     <Link to="/main"><button className="buttonProfilCreate" type="button">Listes des topics</button></Link>
@@ -86,5 +90,7 @@ function Topic () {
         </React.Fragment>
     )
 }
-// Les topic crée ne prenne pas en compte le retour à la ligne. 
+
+// mettre en place onSubmit avec boutton etc + fetch 
+// s'occuper des commentaires 
 export default Topic;
