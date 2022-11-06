@@ -94,16 +94,24 @@ exports.delete = (req, res) =>  {
 
 exports.update = (req, res) =>  {
     const id = req.params.id;
-    Topic.update(req.body, {
-      where: { id: id }
-    })
+
+    const body = {
+      title: req.body.title,
+      description: req.body.description
+    }
+    
+    Topic.update(
+      body, 
+      { where: { id: id } }
+      )
+
       .then(num => {
         if (num == 1) {
-          res.send({
+          res.status(200).send({
             message: "Topic was updated successfully."
           });
         } else {
-          res.send({
+          res.status(404).send({
             message: `Cannot update Topic with id=${id}. Maybe Topic wasn't found or req.body is empty.`
           });
         }

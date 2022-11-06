@@ -111,7 +111,7 @@ function Main () {
                 </div>
                 <div id="create_topic"><h3>Rejoins nous en créant ton topic !</h3></div>
                 <div id="form">
-                    <form onSubmit={handleSubmit} className="newTopic">
+                    <form id="formLoginSignup" onSubmit={handleSubmit} className="newTopic">
                         <input onChange={(e) => setTitle(e.target.value)} type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
                         <textarea onChange={(e) => setDescription(e.target.value)} type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
                         <input type="submit" value="Créer" className="buttonProfilCreate"></input>
