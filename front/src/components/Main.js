@@ -27,29 +27,6 @@ function Main () {
             })
     }, [])
 
-    function handleLike() {
-        let token = localStorage.getItem('token');
-        let topicId;
-        let method;
-        topicId = 2
-        method = "POST"
-
-        // déterminer le post actuel (array des topics)
-
-        fetch ("http://localhost:3000/api/topic/1/like", {
-            method: "POST",
-            headers: { 
-                'Authorization': "BEARER " + token
-            }
-        })
-        .then(function(res) {
-            if (res.ok) {
-                return res.json();
-            }
-        })
-        window.location.reload();
-        // condtion if (res.locals.userId === userId) alors exécuter fetch pour Unlike, sinon fetch Like
-    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -101,7 +78,7 @@ function Main () {
                                         </div>
                                     </Link>
                                     <div className="interactTopic">
-                                        <div onClick={handleLike} className="like"><p>👍 {value.likes.length}</p></div>
+                                        <div className="like"><p>👍 {value.likes.length}</p></div>
                                         {/* <div className="dislike"><p>👎</p></div> */}
                                         <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
                                     </div>

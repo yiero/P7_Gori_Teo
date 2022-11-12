@@ -104,28 +104,5 @@
     flex-direction: column;
 }
 
-#commentPseudo {
-    margin: 5px;
-    font-size: 1.3rem;
-    color: #ff6a6a;
-}
 
-#commentDescription {
-    margin: 5px;
-    border: 0.1rem solid;
-    border-color: rgb(204,204,204);
-    padding: 5px;
-}
 
-#commentsFlex {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    margin: 3px;
-    padding: 2px;
-    border: 0.1rem solid;
-    border-color: rgb(204,204,204);
-    min-width: 200px;
-    max-width: 400px;
-    border-radius: 10px;
-}
