@@ -93,12 +93,6 @@ function Topic () {
         navigate("/main");
     }
 
-
-    function Test() {
-        let userId = localStorage.getItem('userId');
-        console.log(userId)
-    }
-
     function handleLike() {
         fetch ("http://localhost:3000/api/topic/"+ id + "/like", {
             method: "POST",
@@ -157,16 +151,16 @@ function Topic () {
                         <div className="updateTopics">Crée le {createDate}</div>
                         <div className="updateTopics">Mis à jour le {updateDate}</div>
                     </form>
-                <div id="interaction">
-                    { topic.likes && <button onClick={(handleLike)} className="buttonInteractTopic">💗 {topic.likes.length}</button> }
-                    { topic.likes && <button onClick={(handleUnlike)} className="buttonInteractTopic">🖤</button> }
-                    <div id="commentaires">
-                    { topic.comments && <button onClick={(comments)} className="buttonInteractTopic">💬 {topic.comments.length}</button>}
-                        { showComments && topic && (
-                            topic.comments.map((value) =>(
-                                <Commentaire comment={value}/>
-                            ))
-                        )} 
+                    <div id="interaction">
+                        { topic.likes && <button onClick={(handleLike)} className="buttonInteractTopic">💗 {topic.likes.length}</button> }
+                        { topic.likes && <button onClick={(handleUnlike)} className="buttonInteractTopic">🖤</button> }
+                        <div id="commentaires">
+                        { topic.comments && <button onClick={(comments)} className="buttonInteractTopic">💬 {topic.comments.length}</button>}
+                            { showComments && topic && (
+                                topic.comments.map((value) =>(
+                                    <Commentaire comment={value}/>
+                                ))
+                            )} 
                     </div>
                 </div>
                 <div id="topicListes">
