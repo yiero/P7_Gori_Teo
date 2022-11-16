@@ -199,7 +199,7 @@ function Topic () {
                         <textarea onChange={(e) => setComment(e.target.value)} type="text" name="description" id="description_comment" placeholder="Entrez votre message" required></textarea>
                         <input type="submit" value="Créer" className="buttonProfilCreate"></input>
                     </form>
-                    <Link to="/main"><button className="buttonProfilCreate" type="button">Listes des topics</button></Link>
+                    <Link id="buttonListeStyle" to="/main"><button className="buttonProfilCreate" type="button">Listes des topics</button></Link>
                 </div>
             </main>
         </React.Fragment>

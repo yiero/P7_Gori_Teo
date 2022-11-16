@@ -31,6 +31,6 @@ app.use(bodyParser.json());
 
 app.use('/api/topic', topicRoutes);
 app.use('/api/comment', commentRoutes);
-app.use('/api', userRoutes); // à renommer en api/user ? 
+app.use('/api', userRoutes); 
 
 module.exports = app;
