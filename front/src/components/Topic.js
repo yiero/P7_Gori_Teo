@@ -7,23 +7,19 @@ import { useNavigate } from "react-router-dom";
 import Commentaire from './Commentaire';
 
 function Topic () {
-    //TODO : mettre en place l'edit de commentaire (comme sur les topics) et préparer le fetch
-
-    // soucis primaire de l'edit, au clique sur le déroulement des commentaires, les fonction avec paramètre s'éxécute,
-     // et ferme directement les conditions et le form 
-     // problème numéro 2, la modification se fait sur tous les éléments de la boucle
-
-     // stop propagation pour arrêter la remontée d'exceptions
-    
+    //TODO : Création de commentaire
 
     const { id } = useParams();
     let token = localStorage.getItem('token');
+    let userId = localStorage.getItem('userId');
     const navigate = useNavigate();
     const [ topic, setTopic ] = useState("");
     const [ isEditing, setEditing ] = useState(false);
     const [ showComments, setShowComments ] = useState(false);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
+    const [ isAdmin, setIsAdmin ] = useState(false);
+    const [ comment, setComment ] = useState("");
 
     function edit () {
         setEditing(!isEditing);
@@ -32,6 +28,15 @@ function Topic () {
     function comments () {
         setShowComments(!showComments);
     }
+
+    function admin () {
+        if (userId === topic.userId) {
+            setIsAdmin(true);
+        }
+    }
+    // test pour masquer bouton edit si non propriétaire
+    // créer une fonction pour comparer les deux userId, si ils sont égal alors passer la valeur isAdmin à true et afficher bouton sinon false et masquer
+    //problème du if qui ne s'éxecute pas (un console.log dans la fonction s'affiche grace au useEffect, mais la valeur de isAdmin ne change pas)
 
     useEffect(() => {
         fetch ("http://localhost:3000/api/topic/" + id, {
@@ -49,9 +54,9 @@ function Topic () {
                 setTopic(value); 
                 setTitle(value.title);
                 setDescription(value.description);
-                console.log(value) 
+                console.log(isEditing)
             })
-    }, [isEditing]) 
+    }, [isEditing, admin()]) 
 
     function handleSubmit (e) {
         e.preventDefault()
@@ -123,6 +128,31 @@ function Topic () {
             window.location.reload();
     }
 
+    function newComment(e) {
+        e.preventDefault()
+        let token = localStorage.getItem('token');
+        const body = {
+            description: comment,
+            topicId: id
+        }
+
+        fetch("http://localhost:3000/api/comment/", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': "BEARER " + token
+            },
+            body: JSON.stringify(body)
+        })
+        .then(function(res) {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.status;
+            }
+        })
+    }
+
 
     const createDate = new Date(topic.createdAt).toLocaleDateString("fr");
     const updateDate = new Date(topic.updatedAt).toLocaleDateString("fr");
@@ -136,7 +166,7 @@ function Topic () {
            <Header />
            <main id="main">
                 <div id="interactButton">
-                    <button onClick={(edit)}className="interact">✏</button>
+                    { !isAdmin && <button onClick={(edit)}className="interact">✏</button>}
                     <button onClick={(deleteTopic)}className="interact">❌</button>
                 </div>
                     <form onSubmit={handleSubmit}>
@@ -164,6 +194,11 @@ function Topic () {
                     </div>
                 </div>
                 <div id="topicListes">
+                    <form onSubmit={newComment} id="createComment">
+                        <h4>Ajoutez un commentaire</h4>
+                        <textarea onChange={(e) => setComment(e.target.value)} type="text" name="description" id="description_comment" placeholder="Entrez votre message" required></textarea>
+                        <input type="submit" value="Créer" className="buttonProfilCreate"></input>
+                    </form>
                     <Link to="/main"><button className="buttonProfilCreate" type="button">Listes des topics</button></Link>
                 </div>
             </main>

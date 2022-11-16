@@ -69,7 +69,10 @@
     margin: 10px;
 }
 #topicListes {
-    margin: 10px 0px 30px 10px;
+    margin: 50px 0px 30px 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
 }
 
 #pseudoTopic {
@@ -102,6 +105,15 @@
 #commentaires {
     display: flex;
     flex-direction: column;
+}
+#createComment {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#description_comment{
+    width: 100%;
+    height: 50%;
 }
 
 
