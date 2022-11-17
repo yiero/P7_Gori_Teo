@@ -1,0 +1,46 @@
+#mainProfil {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: auto;
+    flex-direction: column;
+    border: 0.1rem solid;
+    border-color: rgb(204, 204, 204);
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px 1px grey;
+}
+
+.titleProfil {
+    font-size: 1.5em;
+    margin: 15px 50px;
+    color: #8c90a1;
+}
+.valueStyle {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+    align-items: center;
+}
+.champStyle {
+   border-right: 0.1rem solid;
+   border-color: rgb(204, 204, 204);
+   padding-right: 100px;
+}
+
+.inputStyle {
+    border-left: 0.1rem solid;
+    border-color: rgb(204, 204, 204);
+    padding-left: 100px;
+}
+#createAt {
+    border-right: 0.1rem solid;
+   border-color: rgb(204, 204, 204);
+   padding-right: 100px;
+}
+#createAtStyle {
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px;
+    margin-left: 100px;
+    align-items: center;
+}

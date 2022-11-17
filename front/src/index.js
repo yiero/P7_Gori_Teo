@@ -20,7 +20,7 @@ root.render(
       <Routes>
           <Route exact path="/" element={<Login />}/>
           <Route exact path="/main" element={<Main />}/>
-          <Route exact path="/profil" element={<Profil />}/>
+          <Route exact path="/profil/:id" element={<Profil />}/>
           <Route exact path="/topic/:id" element={<Topic />}/>
           <Route exact path="/signup" element={<Signup />}/>
       </Routes>

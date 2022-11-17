@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function Header() {
+    let userId = localStorage.getItem('userId');
 
     function deconnecter() {
         localStorage.removeItem('token');
@@ -13,7 +14,7 @@ function Header() {
                         <Link to ="/main" style={{ textDecoration: 'none' }}><h1>Groupomania</h1></Link>
                     </div>
                     <div className='nav'>
-                        <Link to="/profil"><button className="buttonProfilCreate" type="button">Profil</button></Link>
+                        <Link to={"/profil/" + userId} ><button className="buttonProfilCreate" type="button">Profil</button></Link>
                     </div>
                     <div className='nav'>
                         <Link to ="/" onClick={(deconnecter)}><button className="buttonProfilCreate" type="button">Deconnexion</button></Link>
