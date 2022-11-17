@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import '../styles/commentaire.css';
+import { Link } from 'react-router-dom';
 
 
 function Commentaire ({comment}) {
@@ -59,7 +60,7 @@ function Commentaire ({comment}) {
     return (
         <div key={comment.id} id="commentsFlex">
             <div id="pseudoInteractStyle">
-                <div id="commentPseudo">{comment.user.pseudo}</div>
+                <Link to={"/profil/" + comment.userId} id="commentPseudo">{comment.user.pseudo}</Link>
                     <div id="interactComment">
                         <button onClick={(editComment)} className="interact">✏</button>
                         <button onClick={(deleteComment)} className="interact">❌</button>

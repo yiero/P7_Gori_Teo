@@ -83,7 +83,13 @@
     border-left: 0.1rem solid;
     border-color: rgb(204, 204, 204);
     padding-left: 65px;
+    text-decoration: none;
+    color: black;
 }
+#pseudoTopic:hover {
+    color: #FD2D01;
+}
+
 #pseudoDescription {
     display: flex;
     justify-content: space-between;

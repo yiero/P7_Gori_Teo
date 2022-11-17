@@ -22,6 +22,11 @@
     margin: 5px;
     font-size: 1.3rem;
     color: #ff6a6a;
+    text-decoration: none;
+}
+
+#commentPseudo:hover {
+    color: blue;
 }
 
 #commentDescription {

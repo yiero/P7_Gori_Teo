@@ -80,7 +80,7 @@ function Main () {
                                     <div className="interactTopic">
                                         <div className="like"><p>👍 {value.likes.length}</p></div>
                                         {/* <div className="dislike"><p>👎</p></div> */}
-                                        <div className="author"><p key={`${value}-${index}`}>{value.user.pseudo}</p></div>
+                                        <div className="author"><Link to={"/profil/" + value.userId} id="linkProfil" key={`${value}-${index}`}>{value.user.pseudo}</Link></div>
                                     </div>
                                 </div>
                             </div>

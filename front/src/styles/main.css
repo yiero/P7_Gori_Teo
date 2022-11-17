@@ -187,3 +187,11 @@ textarea {
     color: white;
 }
 
+#linkProfil {
+   text-decoration: none; 
+   color: white;
+}
+
+#linkProfil:hover {
+    color: #FD2D01;
+}

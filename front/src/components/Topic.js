@@ -175,7 +175,7 @@ function Topic () {
                         <div id="pseudoDescription">
                             { !isEditing && <div id="topicDescription">{topic.description}</div>}
                             { isEditing && <input onChange={(e) => setDescription(e.target.value)} id="inputDescription" type="text" placeholder="Modifiez le texte" value={description}></input>}
-                            { topic.user && <div id="pseudoTopic">{topic.user.pseudo}</div> }
+                            { topic.user && <Link to={"/profil/" + topic.userId} id="pseudoTopic">{topic.user.pseudo}</Link> }
                         </div>
                         { isEditing && <div id="submitModification"><input type="submit" className="buttonProfilCreate" value="Modifier"></input></div>}
                         <div className="updateTopics">Crée le {createDate}</div>

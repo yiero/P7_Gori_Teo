@@ -13,7 +13,7 @@
 .titleProfil {
     font-size: 1.5em;
     margin: 15px 50px;
-    color: #8c90a1;
+    color: #FD2D01;
 }
 .valueStyle {
     display: flex;
@@ -43,4 +43,7 @@
     margin: 30px;
     margin-left: 100px;
     align-items: center;
+}
+button {
+    cursor: pointer;
 }
