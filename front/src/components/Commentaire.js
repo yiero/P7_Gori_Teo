@@ -11,11 +11,16 @@ function Commentaire ({comment}) {
     const [ isEditingComment, setEditingComment ] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
+    let userId = parseInt(localStorage.getItem('userId'));
     let token = localStorage.getItem('token');
 
     function editComment (e) {
         setEditingComment(!isEditingComment);
         e.preventDefault();
+    }
+
+    function isAdmin () {
+        return userId === comment.userId
     }
 
     function deleteComment () {     
@@ -62,8 +67,8 @@ function Commentaire ({comment}) {
             <div id="pseudoInteractStyle">
                 <Link to={"/profil/" + comment.userId} id="commentPseudo">{comment.user.pseudo}</Link>
                     <div id="interactComment">
-                        <button onClick={(editComment)} className="interact">✏</button>
-                        <button onClick={(deleteComment)} className="interact">❌</button>
+                        { isAdmin() && <button onClick={(editComment)} className="interact">✏</button> }
+                        { isAdmin() && <button onClick={(deleteComment)} className="interact">❌</button> }
                     </div>
             </div>
             <form onSubmit={handleSubmitComment}>

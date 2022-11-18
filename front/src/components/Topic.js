@@ -11,14 +11,13 @@ function Topic () {
 
     const { id } = useParams();
     let token = localStorage.getItem('token');
-    let userId = localStorage.getItem('userId');
+    let userId = parseInt(localStorage.getItem('userId'));
     const navigate = useNavigate();
     const [ topic, setTopic ] = useState("");
     const [ isEditing, setEditing ] = useState(false);
     const [ showComments, setShowComments ] = useState(false);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
-    const [ isAdmin, setIsAdmin ] = useState(false);
     const [ comment, setComment ] = useState("");
 
     function edit () {
@@ -29,14 +28,9 @@ function Topic () {
         setShowComments(!showComments);
     }
 
-    function admin () {
-        if (userId === topic.userId) {
-            setIsAdmin(true);
-        }
+    function isAdmin () {
+        return userId === topic.userId
     }
-    // test pour masquer bouton edit si non propriétaire
-    // créer une fonction pour comparer les deux userId, si ils sont égal alors passer la valeur isAdmin à true et afficher bouton sinon false et masquer
-    //problème du if qui ne s'éxecute pas (un console.log dans la fonction s'affiche grace au useEffect, mais la valeur de isAdmin ne change pas)
 
     useEffect(() => {
         fetch ("http://localhost:3000/api/topic/" + id, {
@@ -56,7 +50,7 @@ function Topic () {
                 setDescription(value.description);
                 console.log(isEditing)
             })
-    }, [isEditing, admin()]) 
+    }, [isEditing]) 
 
     function handleSubmit (e) {
         e.preventDefault()
@@ -166,8 +160,8 @@ function Topic () {
            <Header />
            <main id="main">
                 <div id="interactButton">
-                    { !isAdmin && <button onClick={(edit)}className="interact">✏</button>}
-                    <button onClick={(deleteTopic)}className="interact">❌</button>
+                    { isAdmin() && <button onClick={(edit)} className="interact">✏</button> }
+                    { isAdmin() && <button onClick={(deleteTopic)} className="interact">❌</button> }
                 </div>
                     <form onSubmit={handleSubmit}>
                         { !isEditing && <h2 id="topicTitle">{topic.title}</h2> }

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import '../styles/profil.css';
+import '../styles/profil.css'; 
 import Header from './Header';
 
 function Profil () {
 
     const { id } = useParams();
     let token = localStorage.getItem('token');
+    let userId = parseInt(localStorage.getItem('userId'));
     const [ user, setUser ] = useState("");
     const [ isEditPseudo, setIsEditPseudo ] = useState(false);
     const [ isEditNom, setIsEditNom ] = useState(false);
@@ -29,6 +30,10 @@ function Profil () {
             setUser(value);
         })
     }, [])
+
+    function isAdmin () {
+        return userId === user.id
+    }
 
     function editPseudo() {
         setIsEditPseudo(!isEditPseudo);
@@ -53,9 +58,9 @@ function Profil () {
                     <div className="titleProfil">Pseudo</div>  
                         <div className="valueStyle">
                             <div className="champStyle">{user.pseudo}</div>
-                            <button onClick={(editPseudo)}>✏</button>
+                            { isAdmin() && <button onClick={(editPseudo)}>✏</button>}
                                 { isEditPseudo &&   
-                                    <form className="inputStyle">pseudo modifié</form>                                             
+                                    <form className="inputStyle">pseudo modifié</form>       //input sans valeur à l'intérieur                                      
                                 }
                         </div>
                     <div className="titleProfil">Nom</div>
@@ -76,9 +81,9 @@ function Profil () {
                             <button onClick={(editMail)}>✏</button>
                             { isEditMail && <div className="inputStyle">pseudo modifié</div> }
                     </div>
-                    <div className="titleProfil">Membre depuis</div> 
+                    <div className="titleProfil">Membre depuis le</div> 
                     <div id="createAtStyle">
-                            <div id="createAt"> Le {createDate}</div>
+                            <div id="createAt">{createDate}</div>
                     </div>
                 </div>
         </React.Fragment>
