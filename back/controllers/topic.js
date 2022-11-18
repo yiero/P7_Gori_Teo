@@ -71,25 +71,33 @@ exports.getOne = (req, res) =>  {
 
 exports.delete = (req, res) =>  {
     const id = req.params.id;
-    Topic.destroy({
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Topic was deleted successfully!"
-          });
+
+    Topic.findByPk(id)
+      .then(topic => {
+        if (topic.userId !== res.locals.userId) {
+          return res.send({message: "Not your topic !"})
         } else {
-          res.send({
-            message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
-          });
+          Topic.destroy({
+            where: { id: id }
+          })
+            .then(num => {
+              if (num == 1) {
+                res.send({
+                  message: "Topic was deleted successfully!"
+                });
+              } else {
+                res.send({
+                  message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
+                });
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Could not delete Topic with id=" + id
+              });
+            });
         }
       })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete Topic with id=" + id
-        });
-      });
 };
 
 exports.update = (req, res) =>  {
@@ -99,33 +107,39 @@ exports.update = (req, res) =>  {
       title: req.body.title,
       description: req.body.description
     }
-    
-    Topic.update(
-      body, 
-      { where: { id: id } }
-      )
 
-      .then(num => {
-        if (num == 1) {
-          res.status(200).send({
-            message: "Topic was updated successfully."
-          });
+    Topic.findByPk(id)
+      .then(topic => {
+        if (topic.userId !== res.locals.userId) {
+          return res.send({message: "Not your topic !"})
         } else {
-          res.status(404).send({
-            message: `Cannot update Topic with id=${id}. Maybe Topic wasn't found or req.body is empty.`
-          });
+          Topic.update(
+            body, 
+            { where: { id: id } }
+          )
+            .then(num => {
+              if (num == 1) {
+                res.status(200).send({
+                  message: "Topic was updated successfully."
+                });
+              } else {
+                res.status(404).send({
+                  message: `Cannot update Topic with id=${id}. Maybe Topic wasn't found or req.body is empty.`
+                });
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Error updating Topic with id=" + id
+              });
+            });
         }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating Topic with id=" + id
-        });
-      });
+      })   
 };
 
 exports.unlike = async (req, res) => {
   try {
-    if (topic !== null) {
+    if (topic !== null) { //TODO: vérifier le topic
       Like.destroy(
         { where: { userId: res.locals.userId, topicId: req.params.id } }
       )

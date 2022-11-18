@@ -46,47 +46,66 @@ exports.getOne = (req, res) => {
 exports.update = (req, res) => {
     console.log("Comment.update");
     let id = req.params.id;
-    Comment.update(req.body, {
-        where: {id: id}
-    })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Comment was updated successfully."
-            });
-        } else {
-            res.send({
-                message: `Cannot update comment with id=${id}`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error updating comment with id= " + id
-        });
-    });
-};
-exports.delete = (req, res) => {
-    console.log("Comment.delete");
-    let id = req.params.id;
-    Comment.destroy({
-        where: { id: id }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Comment was deleted successfully !"
-                });
+
+    Comment.findByPk(id)
+        .then(comment => {
+            if (comment.userId !== res.locals.userId) {
+                return res.send({message: "Not your comment !"})
             } else {
-                res.send({
-                    message: `Cannot delete comment with id=${id}`
+                Comment.update(req.body, {
+                    where: {id: id}
+                })
+                .then(num => {
+                    if (num == 1) {
+                        res.send({
+                            message: "Comment was updated successfully."
+                        });
+                    } else {
+                        res.send({
+                            message: `Cannot update comment with id=${id}`
+                        });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error updating comment with id= " + id
+                    });
                 });
             }
         })
-        .catch(err => {
-            res.status(500).send({
-                message: "Could not delete comment with id= " + id
-            });
-        });
+
+};
+// };
+exports.delete = (req, res) => {
+    console.log("Comment.delete");
+    let id = req.params.id;
+    
+    Comment.findByPk(id)
+        .then(comment => {
+            if (comment.userId !== res.locals.userId) {
+                return res.send({message: "Not your comment !"})
+            } else {
+                Comment.destroy({
+                    where: { id: id }
+                })
+                    .then(num => {
+                        if (num == 1) {
+                            res.send({
+                                message: "Comment was deleted successfully !"
+                            });
+                        } else {
+                            res.send({
+                                message: `Cannot delete comment with id=${id}`
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            message: "Could not delete comment with id= " + id
+                        });
+                    });
+            }
+        })
+
 };
 

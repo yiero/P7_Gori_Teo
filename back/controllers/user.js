@@ -35,25 +35,33 @@ exports.getOne = (req, res) => {
 exports.update = (req, res) => {
   console.log("User.update");
   const id = req.params.id;
-  User.update(req.body, {
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "User was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update User with id=${id}. Maybe User wasn't found or req.body is empty.`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating User with id=" + id
-      });
-    });
+
+  User.findByPk(id)
+      .then(user => {
+        if (user.id !== res.locals.userId) {
+          return res.send({message: res.locals.userId})
+        } else {
+          User.update(req.body, {
+            where: { id: id }
+          })
+            .then(num => {
+              if (num == 1) {
+                res.send({
+                  message: "User was updated successfully."
+                });
+              } else {
+                res.send({
+                  message: `Cannot update User with id=${id}. Maybe User wasn't found or req.body is empty.`
+                });
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Error updating User with id=" + id
+              });
+            });         
+        }
+      })
 }; 
 
 exports.create = (req, res) => {
@@ -86,25 +94,33 @@ exports.create = (req, res) => {
 exports.delete = (req, res) => {
   console.log("User.delete");
   const id = req.params.id;
-  User.destroy({
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "User was deleted successfully!"
-        });
-      } else {
-        res.send({
-          message: `Cannot delete User with id=${id}. Maybe User was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete User with id=" + id
-      });
-    });
+
+  User.findByPk(id)
+      .then(user => {
+        if (user.id !== res.locals.userId) {
+          return res.send({message: "It's not you !"})
+        } else {
+          User.destroy({
+            where: { id: id }
+          })
+            .then(num => {
+              if (num == 1) {
+                res.send({
+                  message: "User was deleted successfully!"
+                });
+              } else {
+                res.send({
+                  message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                });
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Could not delete User with id=" + id
+              });
+            });
+        }
+      })
 }; 
 
 exports.signup = (req, res) => {
