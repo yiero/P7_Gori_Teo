@@ -28,9 +28,9 @@
 }
 
 .inputStyle {
-    border-left: 0.1rem solid;
+    border: 0.1rem solid;
     border-color: rgb(204, 204, 204);
-    padding-left: 100px;
+    padding: 5px;
 }
 #createAt {
     border-right: 0.1rem solid;
@@ -45,5 +45,8 @@
     align-items: center;
 }
 button {
+    cursor: pointer;
+}
+.buttonEditProfil {
     cursor: pointer;
 }

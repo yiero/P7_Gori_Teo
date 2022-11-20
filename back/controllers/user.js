@@ -39,7 +39,7 @@ exports.update = (req, res) => {
   User.findByPk(id)
       .then(user => {
         if (user.id !== res.locals.userId) {
-          return res.send({message: res.locals.userId})
+          return res.send({message: "It's not you !"})
         } else {
           User.update(req.body, {
             where: { id: id }
