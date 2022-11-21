@@ -195,3 +195,26 @@ textarea {
 #linkProfil:hover {
     color: #FD2D01;
 }
+@media screen and (min-width: 426px) and (max-width: 1024px ) {
+    .topicType {
+        width: 400px;
+        min-width: 0px;
+    }
+    #topics {
+        align-items: center;
+    }
+}
+
+@media screen and (min-width:375px) and (max-width: 425px) {
+    .topicType {
+        width: 250px;
+    }
+}
+
+@media screen and (min-width:0px) and (max-width: 325px) {
+    .topicType {
+        width: 200px;
+    }
+}
+
+

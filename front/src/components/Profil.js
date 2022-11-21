@@ -35,7 +35,7 @@ function Profil () {
         })
     }, [])
 
-    function isAdmin () {
+    function isOwner () {
         return userId === user.id
     }
 
@@ -163,7 +163,7 @@ function Profil () {
                     <div className="titleProfil">Pseudo</div>  
                         <form onSubmit={handleSubmitPseudo} className="valueStyle">
                             <div className="champStyle">{user.pseudo}</div>
-                            { isAdmin() && <button onClick={(editPseudo)}>✏</button>}
+                            { isOwner() && <button onClick={(editPseudo)}>✏</button>}
                                 { isEditPseudo &&   
                                     <input onChange={(e) => setPseudo(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau pseudo" required></input>                                    
                                 }
@@ -174,7 +174,7 @@ function Profil () {
                     <div className="titleProfil">Nom</div>
                         <form onSubmit={handleSubmitNom} className="valueStyle">
                             <div className="champStyle">{user.nom}</div>
-                                { isAdmin() && <button onClick={(editNom)}>✏</button>}
+                                { isOwner() && <button onClick={(editNom)}>✏</button>}
                                 { isEditNom && 
                                     <input onChange={(e) => setNom(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau nom" required></input> 
                                 }
@@ -185,7 +185,7 @@ function Profil () {
                     <div className="titleProfil">Prenom</div>
                         <form onSubmit={handleSubmitPrenom} className="valueStyle">
                             <div className="champStyle">{user.prenom}</div>
-                                { isAdmin() && <button onClick={(editPrenom)}>✏</button>}
+                                { isOwner() && <button onClick={(editPrenom)}>✏</button>}
                                 { isEditPrenom && 
                                     <input onChange={(e) => setPrenom(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau prenom"></input> 
                                 }
@@ -196,7 +196,7 @@ function Profil () {
                     <div className="titleProfil">Email</div>
                         <form onSubmit={handleSubmitMail} className="valueStyle">
                             <div className="champStyle">{user.email}</div>
-                                { isAdmin() && <button onClick={(editMail)}>✏</button>}
+                                { isOwner() && <button onClick={(editMail)}>✏</button>}
                                 { isEditMail && 
                                     <input onChange={(e) => setMail(e.target.value)} type="email" className="inputStyle" placeholder="Nouvel email"></input> 
                                 }

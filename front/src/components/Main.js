@@ -84,7 +84,7 @@ function Main () {
                                     </div>
                                 </div>
                             </div>
-                    ))}
+                    )).reverse()}
                 </div>
                 <div id="create_topic"><h3>Rejoins nous en créant ton topic !</h3></div>
                 <div id="form">

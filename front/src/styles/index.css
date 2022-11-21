@@ -4,3 +4,22 @@ body {
   font: 1rem 'Fira Sans', sans-serif;
 }
 
+@media screen and (min-width:320px) and (max-width: 425px) {
+  .form {
+    width: 300px;
+  }
+  .valueStyle {
+    flex-direction: column;
+  }
+}  
+
+@media screen and (min-width: 426px) and (max-width: 1024px ){
+  .form {
+    width: 500px;
+  }
+  .topic {
+    width: 500px;
+  }
+  
+}
+

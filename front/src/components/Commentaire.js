@@ -19,7 +19,7 @@ function Commentaire ({comment}) {
         e.preventDefault();
     }
 
-    function isAdmin () {
+    function isOwner () {
         return userId === comment.userId
     }
 
@@ -67,8 +67,8 @@ function Commentaire ({comment}) {
             <div id="pseudoInteractStyle">
                 <Link to={"/profil/" + comment.userId} id="commentPseudo">{comment.user.pseudo}</Link>
                     <div id="interactComment">
-                        { isAdmin() && <button onClick={(editComment)} className="interact">✏</button> }
-                        { isAdmin() && <button onClick={(deleteComment)} className="interact">❌</button> }
+                        { isOwner() && <button onClick={(editComment)} className="interact">✏</button> }
+                        { isOwner() && <button onClick={(deleteComment)} className="interact">❌</button> }
                     </div>
             </div>
             <form onSubmit={handleSubmitComment}>

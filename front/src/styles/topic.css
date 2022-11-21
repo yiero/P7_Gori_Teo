@@ -131,5 +131,36 @@
     text-decoration: none;
 }
 
+@media screen and (min-width: 320px) and (max-width: 425px) {
+    h4 {
+        margin-left: 4px;
+    }
+    #createComment {
+        width: 40%;
+    }
+    #description_comment {
+        width: 80%;
+    }
+    #interaction {
+        flex-direction: column;
+        align-items: center;
+    }
+    #interactButton {
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    h4 {
+        margin-left: 4px;
+    }
+    #createComment {
+        width: 30%;
+    }
+    #description_comment {
+        width: 90%;
+    }
+}
+
 
 

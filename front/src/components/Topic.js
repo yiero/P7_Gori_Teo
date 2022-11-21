@@ -28,7 +28,7 @@ function Topic () {
         setShowComments(!showComments);
     }
 
-    function isAdmin () {
+    function isOwner () {
         return userId === topic.userId
     }
 
@@ -160,8 +160,8 @@ function Topic () {
            <Header />
            <main id="main">
                 <div id="interactButton">
-                    { isAdmin() && <button onClick={(edit)} className="interact">✏</button> }
-                    { isAdmin() && <button onClick={(deleteTopic)} className="interact">❌</button> }
+                    { isOwner() && <button onClick={(edit)} className="interact">✏</button> }
+                    { isOwner() && <button onClick={(deleteTopic)} className="interact">❌</button> }
                 </div>
                     <form onSubmit={handleSubmit}>
                         { !isEditing && <h2 id="topicTitle">{topic.title}</h2> }
