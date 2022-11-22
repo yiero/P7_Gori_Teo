@@ -16,6 +16,7 @@ exports.create = (req, res) => {
         title: req.body.title,
         description: req.body.description,
         userId: res.locals.userId
+        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     };
     Topic.create(topic)
         .then(data => {
