@@ -148,6 +148,9 @@
     #interactButton {
         flex-direction: column;
     }
+    img {
+        max-width: 100px;
+    }
 }
 
 @media screen and (min-width: 426px) and (max-width: 768px) {
@@ -160,7 +163,21 @@
     #description_comment {
         width: 90%;
     }
+    img {
+        max-width: 500px;
+    }
 }
 
+@media screen and (min-width: 769px) {
+    img {
+        max-width: 500px;
+    }
+}
 
+#imageTopic {
+    padding: 20px;
+}
 
+/* img {
+    max-width: 500px;
+} */

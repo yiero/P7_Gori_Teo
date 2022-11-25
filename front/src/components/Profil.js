@@ -156,6 +156,7 @@ function Profil () {
 
     const createDate = new Date(user.createdAt).toLocaleDateString("fr");
 
+    // (isAdmin() || isOwner()) condition compte admin
     return(
         <React.Fragment>
             <Header />

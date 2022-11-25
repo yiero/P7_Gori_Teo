@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Commentaire from './Commentaire';
 
 function Topic () {
-    //TODO : Création de commentaire
-
+   
     const { id } = useParams();
     let token = localStorage.getItem('token');
     let userId = parseInt(localStorage.getItem('userId'));
@@ -32,6 +31,10 @@ function Topic () {
         return userId === topic.userId
     }
 
+    function isAdmin() {
+        return topic.user.admin === true
+    }
+
     useEffect(() => {
         fetch ("http://localhost:3000/api/topic/" + id, {
             method: "GET",
@@ -48,13 +51,13 @@ function Topic () {
                 setTopic(value); 
                 setTitle(value.title);
                 setDescription(value.description);
-                console.log(isEditing)
+                console.log(topic.user.admin);
             })
     }, [isEditing]) 
 
     function handleSubmit (e) {
         e.preventDefault()
-        const body = {
+        const body = {   
             title: title,
             description: description
         }
@@ -62,10 +65,10 @@ function Topic () {
         fetch("http://localhost:3000/api/topic/" + id, {
             method: "PUT",
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'application/json', 
                 'Authorization': "BEARER " + token
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body) 
         })
         .then(function(res) {
             if (res.ok) {
@@ -151,10 +154,6 @@ function Topic () {
     const createDate = new Date(topic.createdAt).toLocaleDateString("fr");
     const updateDate = new Date(topic.updatedAt).toLocaleDateString("fr");
 
-
-    
-    
-
     return (
         <React.Fragment>
            <Header />
@@ -167,7 +166,10 @@ function Topic () {
                         { !isEditing && <h2 id="topicTitle">{topic.title}</h2> }
                         { isEditing && <div id="inputTitleFlex"><input onChange={(e) => setTitle(e.target.value)} id="inputTitle" type="text" placeholder="Modifiez le titre" value={title}></input></div>}
                         <div id="pseudoDescription">
-                            { !isEditing && <div id="topicDescription">{topic.description}</div>}
+                            <div>
+                                { !isEditing && <div id="topicDescription">{topic.description}</div>}
+                                { !isEditing && <div id="imageTopic"><img src={topic.imageUrl}></img></div>}
+                            </div>
                             { isEditing && <input onChange={(e) => setDescription(e.target.value)} id="inputDescription" type="text" placeholder="Modifiez le texte" value={description}></input>}
                             { topic.user && <Link to={"/profil/" + topic.userId} id="pseudoTopic">{topic.user.pseudo}</Link> }
                         </div>
@@ -200,6 +202,4 @@ function Topic () {
     )
 }
 
-
-// s'occuper des commentaires 
 export default Topic;

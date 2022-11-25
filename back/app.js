@@ -4,6 +4,7 @@ const topicRoutes = require('./routes/topic');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comment');
 const dotenv = require('dotenv').config();
+const path = require('path');
 
 const app = express();
 
@@ -25,7 +26,7 @@ db.sequelize.sync()
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(bodyParser.json());
 

@@ -5,6 +5,9 @@ module.exports = (sequelize, Datatypes) => {
         },
         description: {
             type: Datatypes.STRING
+        },
+        imageUrl: {
+            type: Datatypes.STRING
         }
     })
     return Topic;

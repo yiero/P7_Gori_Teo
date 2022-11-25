@@ -5,6 +5,9 @@ import '../styles/main.css';
 import Header from './Header'
 
 function Main () {
+
+     //TODO : rajouter useState pour fichier file 
+
     const [ topics, updateTopics ] = useState([]);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
@@ -31,7 +34,7 @@ function Main () {
     function handleSubmit(e) {
         e.preventDefault()
         let token = localStorage.getItem('token');
-        const body = {
+        const body = {       //transformer body en formData
             title: title,
             description: description
         }
@@ -39,10 +42,10 @@ function Main () {
         fetch("http://localhost:3000/api/topic", {
             method: "POST",
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'application/json', // mettre formData multipart/form-data
                 'Authorization': "BEARER " + token
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body) // body = formData et non JSON.stringify(xxx)
         })
         .then(function(res) {
             if (res.ok) {
@@ -58,7 +61,8 @@ function Main () {
     }
 
 
- 
+
+    // TODO: rajouter input type file
     return (
         <React.Fragment>
             <Header/>

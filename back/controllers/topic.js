@@ -4,6 +4,7 @@ const Topic = db.topic;
 const Like = db.like;
 const User = db.user;
 const Comment = db.comment;
+const fs = require('fs');
 
 exports.create = (req, res) => {
     if (!req.body.title) {
@@ -15,8 +16,8 @@ exports.create = (req, res) => {
     const topic = {
         title: req.body.title,
         description: req.body.description,
-        userId: res.locals.userId
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        userId: res.locals.userId,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     };
     Topic.create(topic)
         .then(data => {
@@ -72,30 +73,33 @@ exports.getOne = (req, res) =>  {
 
 exports.delete = (req, res) =>  {
     const id = req.params.id;
+    const filename = topic.imageUrl.split('/images/')[1];
 
     Topic.findByPk(id)
       .then(topic => {
         if (topic.userId !== res.locals.userId) {
           return res.send({message: "Not your topic !"})
-        } else {
-          Topic.destroy({
-            where: { id: id }
-          })
-            .then(num => {
-              if (num == 1) {
-                res.send({
-                  message: "Topic was deleted successfully!"
-                });
-              } else {
-                res.send({
-                  message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
-                });
-              }
+        } else { 
+          fs.unlink(`images/${filename}`, () => {
+            Topic.destroy({
+              where: { id: id }
             })
-            .catch(err => {
-              res.status(500).send({
-                message: "Could not delete Topic with id=" + id
-              });
+              .then(num => {
+                if (num == 1) {
+                  res.send({
+                    message: "Topic was deleted successfully!"
+                  });
+                } else {
+                  res.send({
+                    message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
+                  });
+                }
+              })
+          })
+              .catch(err => {
+                res.status(500).send({
+                  message: "Could not delete Topic with id=" + id
+                });
             });
         }
       })
@@ -106,7 +110,8 @@ exports.update = (req, res) =>  {
 
     const body = {
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
 
     Topic.findByPk(id)

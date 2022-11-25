@@ -105,6 +105,7 @@ body {
     border-radius: 20px;
     background-color: #4E5166;
     margin: 0px 10px 30px 10px;
+    height: 140px;
 }
 .topicStyle {
     display: flex;

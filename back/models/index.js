@@ -24,11 +24,11 @@ db.comment = require("./Comment")(sequelize, Sequelize);
 db.like = require("./Like")(sequelize, Sequelize);
 
  //possède plusieurs
-db.topic.hasMany(db.comment);
+db.topic.hasMany(db.comment, { onDelete: 'cascade' });
 db.user.hasMany(db.topic, { as: "topics" });
 db.user.hasMany(db.comment, {as: "comments" });
 db.user.hasMany(db.like);
-db.topic.hasMany(db.like);
+db.topic.hasMany(db.like, { onDelete: 'cascade' });
 
 //appartiens à
 db.comment.belongsTo(db.topic); 
