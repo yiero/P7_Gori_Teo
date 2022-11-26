@@ -6,11 +6,10 @@ import Header from './Header'
 
 function Main () {
 
-     //TODO : rajouter useState pour fichier file 
-
     const [ topics, updateTopics ] = useState([]);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
+    const [ file, setFile ] = useState(null)
 
     useEffect(() => {
         let token = localStorage.getItem('token');
@@ -34,18 +33,17 @@ function Main () {
     function handleSubmit(e) {
         e.preventDefault()
         let token = localStorage.getItem('token');
-        const body = {       //transformer body en formData
-            title: title,
-            description: description
-        }
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("image", file);
 
         fetch("http://localhost:3000/api/topic", {
             method: "POST",
             headers: {
-                'Content-type': 'application/json', // mettre formData multipart/form-data
                 'Authorization': "BEARER " + token
             },
-            body: JSON.stringify(body) // body = formData et non JSON.stringify(xxx)
+            body: formData
         })
         .then(function(res) {
             if (res.ok) {
@@ -61,8 +59,6 @@ function Main () {
     }
 
 
-
-    // TODO: rajouter input type file
     return (
         <React.Fragment>
             <Header/>
@@ -95,6 +91,7 @@ function Main () {
                     <form id="formLoginSignup" onSubmit={handleSubmit} className="newTopic">
                         <input onChange={(e) => setTitle(e.target.value)} type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
                         <textarea onChange={(e) => setDescription(e.target.value)} type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
+                        <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>
                         <input type="submit" value="Créer" className="buttonProfilCreate"></input>
                     </form>        
                 </div>

@@ -31,9 +31,9 @@ function Topic () {
         return userId === topic.userId
     }
 
-    function isAdmin() {
-        return topic.user.admin === true
-    }
+    // function isAdmin() {
+    //     return topic.user.admin === true
+    // }
 
     useEffect(() => {
         fetch ("http://localhost:3000/api/topic/" + id, {
