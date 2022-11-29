@@ -33,6 +33,7 @@ function Main () {
     function handleSubmit(e) {
         e.preventDefault()
         let token = localStorage.getItem('token');
+        
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
@@ -91,7 +92,7 @@ function Main () {
                     <form id="formLoginSignup" onSubmit={handleSubmit} className="newTopic">
                         <input onChange={(e) => setTitle(e.target.value)} type="text" name="titre" id="title_topic" placeholder="Saisissez votre titre" required></input>
                         <textarea onChange={(e) => setDescription(e.target.value)} type="text" name="description" id="description_topic" placeholder="Entrez votre message" cols="30" rows="5" required></textarea>
-                        <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>
+                        <input type="file" onChange={(e) => setFile(e.target.files[0])} required></input>
                         <input type="submit" value="Créer" className="buttonProfilCreate"></input>
                     </form>        
                 </div>

@@ -54,7 +54,7 @@ exports.getOne = (req, res) =>  {
             { model: Like,
                 include:[{model: User,
                 attributes: ["id","pseudo"]}]}, 
-            { model: User }]})
+            { model: User, }]})
         .then(data => {
           if (data) {
             res.send(data);
@@ -107,11 +107,13 @@ exports.delete = (req, res) =>  {
 
 exports.update = (req, res) =>  {
     const id = req.params.id;
+    const topicObject = req.file ? {
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { }
 
     const body = {
       title: req.body.title,
       description: req.body.description,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
 
     Topic.findByPk(id)
@@ -121,7 +123,8 @@ exports.update = (req, res) =>  {
         } else {
           Topic.update(
             body, 
-            { where: { id: id } }
+            { where: { id: id } },
+            { topicObject }
           )
             .then(num => {
               if (num == 1) {

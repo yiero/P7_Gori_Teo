@@ -51,7 +51,7 @@ function Topic () {
                 setTopic(value); 
                 setTitle(value.title);
                 setDescription(value.description);
-                console.log(topic.user.admin);
+                console.log(topic.user.id);
             })
     }, [isEditing]) 
 
