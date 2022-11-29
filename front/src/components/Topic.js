@@ -11,6 +11,7 @@ function Topic () {
     const { id } = useParams();
     let token = localStorage.getItem('token');
     let userId = parseInt(localStorage.getItem('userId'));
+    let admin = localStorage.getItem('admin');
     const navigate = useNavigate();
     const [ topic, setTopic ] = useState("");
     const [ isEditing, setEditing ] = useState(false);
@@ -31,9 +32,9 @@ function Topic () {
         return userId === topic.userId
     }
 
-    // function isAdmin() {
-    //     return topic.user.admin === true
-    // }
+    function isAdmin() {
+        return admin
+    }
 
     useEffect(() => {
         fetch ("http://localhost:3000/api/topic/" + id, {
@@ -51,7 +52,7 @@ function Topic () {
                 setTopic(value); 
                 setTitle(value.title);
                 setDescription(value.description);
-                console.log(topic.user.id);
+                console.log(isAdmin());
             })
     }, [isEditing]) 
 

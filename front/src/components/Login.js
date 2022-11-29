@@ -35,6 +35,7 @@ function Login () {
         .then(function(value) { 
             localStorage.setItem('token', value.token);
             localStorage.setItem('userId', value.userId);
+            localStorage.setItem('admin', value.admin);
             navigate("/main");
         })
     }

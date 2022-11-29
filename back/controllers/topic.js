@@ -1,4 +1,4 @@
-const { topic } = require('../models');
+const { topic, user } = require('../models');
 const db = require('../models');
 const Topic = db.topic;
 const Like = db.like;
@@ -118,9 +118,7 @@ exports.update = (req, res) =>  {
 
     Topic.findByPk(id)
       .then(topic => {
-        if (topic.userId !== res.locals.userId) {
-          return res.send({message: "Not your topic !"})
-        } else {
+        if (topic.userId == res.locals.userId || user.admin === true) { // réussir à pointer vers user.admin 
           Topic.update(
             body, 
             { where: { id: id } },
@@ -142,6 +140,8 @@ exports.update = (req, res) =>  {
                 message: "Error updating Topic with id=" + id
               });
             });
+        } else {
+          return res.send({message: "Not your topic !"}) 
         }
       })   
 };
