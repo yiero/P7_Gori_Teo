@@ -36,18 +36,16 @@ exports.update = (req, res) => {
   console.log("User.update");
   const id = req.params.id;
 
-  User.findByPk(id)
+  User.findOne({ where: { id: res.locals.userId }})
       .then(user => {
-        if (user.id !== res.locals.userId) {
-          return res.send({message: "It's not you !"})
-        } else {
+        if (id == res.locals.userId || user.admin == true) {
           User.update(req.body, {
             where: { id: id }
           })
             .then(num => {
               if (num == 1) {
                 res.send({
-                  message: "User was updated successfully."
+                  message: "User updated successfully "
                 });
               } else {
                 res.send({
@@ -60,6 +58,8 @@ exports.update = (req, res) => {
                 message: "Error updating User with id=" + id
               });
             });         
+        } else {
+          return res.send({message: "It's not you !"})
         }
       })
 }; 
@@ -95,11 +95,9 @@ exports.delete = (req, res) => {
   console.log("User.delete");
   const id = req.params.id;
 
-  User.findByPk(id)
+  User.findOne({ where: { id: res.locals.userId }})
       .then(user => {
-        if (user.id !== res.locals.userId) {
-          return res.send({message: "It's not you !"})
-        } else {
+        if (id == res.locals.userId || user.admin == true) {
           User.destroy({
             where: { id: id }
           })
@@ -119,6 +117,8 @@ exports.delete = (req, res) => {
                 message: "Could not delete User with id=" + id
               });
             });
+        } else {
+          return res.send({message: "It's not you !"})
         }
       })
 }; 

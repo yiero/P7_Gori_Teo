@@ -36,6 +36,7 @@ function Login () {
             localStorage.setItem('token', value.token);
             localStorage.setItem('userId', value.userId);
             localStorage.setItem('admin', value.admin);
+            console.log(value)
             navigate("/main");
         })
     }

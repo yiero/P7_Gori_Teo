@@ -74,35 +74,37 @@ exports.getOne = (req, res) =>  {
 exports.delete = (req, res) =>  {
     const id = req.params.id;
     const filename = topic.imageUrl.split('/images/')[1];
-
-    Topic.findByPk(id)
-      .then(topic => {
-        if (topic.userId !== res.locals.userId) {
-          return res.send({message: "Not your topic !"})
-        } else { 
-          fs.unlink(`images/${filename}`, () => {
-            Topic.destroy({
-              where: { id: id }
-            })
-              .then(num => {
-                if (num == 1) {
-                  res.send({
-                    message: "Topic was deleted successfully!"
-                  });
-                } else {
-                  res.send({
-                    message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
-                  });
-                }
+    User.findOne({ where: { id: res.locals.userId }})
+    .then(user => {
+      Topic.findByPk(id)
+        .then(topic => {
+          if (topic.userId == res.locals.userId || user.admin == true) {
+            fs.unlink(`images/${filename}`, () => {
+              Topic.destroy({
+                where: { id: id }
               })
-          })
-              .catch(err => {
-                res.status(500).send({
-                  message: "Could not delete Topic with id=" + id
-                });
-            });
-        }
-      })
+                .then(num => {
+                  if (num == 1) {
+                    res.send({
+                      message: "Topic was deleted successfully!"
+                    });
+                  } else {
+                    res.send({
+                      message: `Cannot delete Topic with id=${id}. Maybe Topic was not found!`
+                    });
+                  }
+                })
+            })
+                .catch(err => {
+                  res.status(500).send({
+                    message: "Could not delete Topic with id=" + id
+                  });
+              });
+          } else { 
+            return res.send({message: "Not your topic !"})
+          }
+        })
+    })
 };
 
 exports.update = (req, res) =>  {
@@ -115,35 +117,37 @@ exports.update = (req, res) =>  {
       title: req.body.title,
       description: req.body.description,
     }
-
-    Topic.findByPk(id)
-      .then(topic => {
-        if (topic.userId == res.locals.userId || user.admin === true) { // réussir à pointer vers user.admin 
-          Topic.update(
-            body, 
-            { where: { id: id } },
-            { topicObject }
-          )
-            .then(num => {
-              if (num == 1) {
-                res.status(200).send({
-                  message: "Topic was updated successfully."
+    User.findOne({ where: { id: res.locals.userId }})
+    .then(user => {
+      Topic.findByPk(id)
+        .then(topic => {
+          if (topic.userId == res.locals.userId || user.admin == true) { 
+            Topic.update(
+              body, 
+              { where: { id: id } },
+              { topicObject }
+            )
+              .then(num => {
+                if (num == 1) {
+                  res.status(200).send({
+                    message: "Topic was updated successfully."
+                  });
+                } else {
+                  res.status(404).send({
+                    message: `Cannot update Topic with id=${id}. Maybe Topic wasn't found or req.body is empty.`
+                  });
+                }
+              })
+              .catch(err => {
+                res.status(500).send({
+                  message: "Error updating Topic with id=" + id
                 });
-              } else {
-                res.status(404).send({
-                  message: `Cannot update Topic with id=${id}. Maybe Topic wasn't found or req.body is empty.`
-                });
-              }
-            })
-            .catch(err => {
-              res.status(500).send({
-                message: "Error updating Topic with id=" + id
               });
-            });
-        } else {
-          return res.send({message: "Not your topic !"}) 
-        }
-      })   
+          } else {
+            return res.send({message: "Not your topic !"}) 
+          }
+        })
+    })   
 };
 
 exports.unlike = async (req, res) => {
