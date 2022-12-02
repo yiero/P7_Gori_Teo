@@ -13,6 +13,7 @@ function Commentaire ({comment}) {
     const { id } = useParams();
     let userId = parseInt(localStorage.getItem('userId'));
     let token = localStorage.getItem('token');
+    let admin = JSON.parse(localStorage.getItem('admin'));
 
     function editComment (e) {
         setEditingComment(!isEditingComment);
@@ -21,6 +22,10 @@ function Commentaire ({comment}) {
 
     function isOwner () {
         return userId === comment.userId
+    }
+
+    function isAdmin() {
+        return admin
     }
 
     function deleteComment () {     
@@ -67,8 +72,8 @@ function Commentaire ({comment}) {
             <div id="pseudoInteractStyle">
                 <Link to={"/profil/" + comment.userId} id="commentPseudo">{comment.user.pseudo}</Link>
                     <div id="interactComment">
-                        { isOwner() && <button onClick={(editComment)} className="interact">✏</button> }
-                        { isOwner() && <button onClick={(deleteComment)} className="interact">❌</button> }
+                        { (isOwner() || isAdmin()) && <button onClick={(editComment)} className="interact">✏</button> }
+                        { (isOwner() || isAdmin()) && <button onClick={(deleteComment)} className="interact">❌</button> }
                     </div>
             </div>
             <form onSubmit={handleSubmitComment}>

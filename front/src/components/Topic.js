@@ -11,7 +11,7 @@ function Topic () {
     const { id } = useParams();
     let token = localStorage.getItem('token');
     let userId = parseInt(localStorage.getItem('userId'));
-    let admin = localStorage.getItem('admin');
+    let admin = JSON.parse(localStorage.getItem('admin'));
     const navigate = useNavigate();
     const [ topic, setTopic ] = useState("");
     const [ isEditing, setEditing ] = useState(false);
@@ -155,13 +155,14 @@ function Topic () {
     const createDate = new Date(topic.createdAt).toLocaleDateString("fr");
     const updateDate = new Date(topic.updatedAt).toLocaleDateString("fr");
 
+    // modifier les conditions des autres composants L.164
     return (
         <React.Fragment>
            <Header />
            <main id="main">
                 <div id="interactButton">
-                    { isOwner() && <button onClick={(edit)} className="interact">✏</button> }
-                    { isOwner() && <button onClick={(deleteTopic)} className="interact">❌</button> }
+                    { (isOwner() || isAdmin()) && <button onClick={(edit)} className="interact">✏</button> } 
+                    { (isOwner() || isAdmin()) && <button onClick={(deleteTopic)} className="interact">❌</button> }
                 </div>
                     <form onSubmit={handleSubmit}>
                         { !isEditing && <h2 id="topicTitle">{topic.title}</h2> }

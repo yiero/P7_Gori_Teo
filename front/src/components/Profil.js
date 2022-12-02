@@ -8,6 +8,7 @@ function Profil () {
     const { id } = useParams();
     let token = localStorage.getItem('token');
     let userId = parseInt(localStorage.getItem('userId'));
+    let admin = JSON.parse(localStorage.getItem('admin'));
     const [ user, setUser ] = useState("");
     const [ isEditPseudo, setIsEditPseudo ] = useState(false);
     const [ pseudo, setPseudo ] = useState("");
@@ -37,6 +38,9 @@ function Profil () {
 
     function isOwner () {
         return userId === user.id
+    }
+    function isAdmin() {
+        return admin
     }
 
     function editPseudo(e) {
@@ -164,7 +168,7 @@ function Profil () {
                     <div className="titleProfil">Pseudo</div>  
                         <form onSubmit={handleSubmitPseudo} className="valueStyle">
                             <div className="champStyle">{user.pseudo}</div>
-                            { isOwner() && <button onClick={(editPseudo)}>✏</button>}
+                            { (isOwner() || isAdmin()) && <button onClick={(editPseudo)}>✏</button>}
                                 { isEditPseudo &&   
                                     <input onChange={(e) => setPseudo(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau pseudo" required></input>                                    
                                 }
@@ -175,7 +179,7 @@ function Profil () {
                     <div className="titleProfil">Nom</div>
                         <form onSubmit={handleSubmitNom} className="valueStyle">
                             <div className="champStyle">{user.nom}</div>
-                                { isOwner() && <button onClick={(editNom)}>✏</button>}
+                                { (isOwner() || isAdmin()) && <button onClick={(editNom)}>✏</button>}
                                 { isEditNom && 
                                     <input onChange={(e) => setNom(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau nom" required></input> 
                                 }
@@ -186,7 +190,7 @@ function Profil () {
                     <div className="titleProfil">Prenom</div>
                         <form onSubmit={handleSubmitPrenom} className="valueStyle">
                             <div className="champStyle">{user.prenom}</div>
-                                { isOwner() && <button onClick={(editPrenom)}>✏</button>}
+                                { (isOwner() || isAdmin()) && <button onClick={(editPrenom)}>✏</button>}
                                 { isEditPrenom && 
                                     <input onChange={(e) => setPrenom(e.target.value)} type="text" className="inputStyle" placeholder="Nouveau prenom"></input> 
                                 }
@@ -197,7 +201,7 @@ function Profil () {
                     <div className="titleProfil">Email</div>
                         <form onSubmit={handleSubmitMail} className="valueStyle">
                             <div className="champStyle">{user.email}</div>
-                                { isOwner() && <button onClick={(editMail)}>✏</button>}
+                                { (isOwner() || isAdmin()) && <button onClick={(editMail)}>✏</button>}
                                 { isEditMail && 
                                     <input onChange={(e) => setMail(e.target.value)} type="email" className="inputStyle" placeholder="Nouvel email"></input> 
                                 }

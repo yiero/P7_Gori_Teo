@@ -74,6 +74,7 @@ exports.getOne = (req, res) =>  {
 exports.delete = (req, res) =>  {
     const id = req.params.id;
     const filename = topic.imageUrl.split('/images/')[1];
+
     User.findOne({ where: { id: res.locals.userId }})
     .then(user => {
       Topic.findByPk(id)
@@ -95,15 +96,15 @@ exports.delete = (req, res) =>  {
                   }
                 })
             })
-                .catch(err => {
-                  res.status(500).send({
-                    message: "Could not delete Topic with id=" + id
-                  });
-              });
           } else { 
             return res.send({message: "Not your topic !"})
           }
         })
+        .catch(err => {
+          res.status(500).send({
+            message: "Could not delete Topic with id=" + id
+          });
+      });
     })
 };
 
