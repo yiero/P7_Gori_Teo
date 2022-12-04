@@ -110,14 +110,15 @@ exports.delete = (req, res) =>  {
 
 exports.update = (req, res) =>  {
     const id = req.params.id;
-    const topicObject = req.file ? {
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { }
+    // const topicObject = req.file ? {
+    //   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    // } : { }
 
-    const body = {
+    const body = req.file ? {
       title: req.body.title,
       description: req.body.description,
-    }
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { }
     User.findOne({ where: { id: res.locals.userId }})
     .then(user => {
       Topic.findByPk(id)
@@ -125,8 +126,8 @@ exports.update = (req, res) =>  {
           if (topic.userId == res.locals.userId || user.admin == true) { 
             Topic.update(
               body, 
-              { where: { id: id } },
-              { topicObject }
+              { where: { id: id } }
+              // { topicObject }
             )
               .then(num => {
                 if (num == 1) {

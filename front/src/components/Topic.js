@@ -19,6 +19,7 @@ function Topic () {
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ comment, setComment ] = useState("");
+    const [ file, setFile ] = useState(null)
 
     function edit () {
         setEditing(!isEditing);
@@ -58,18 +59,18 @@ function Topic () {
 
     function handleSubmit (e) {
         e.preventDefault()
-        const body = {   
-            title: title,
-            description: description
-        }
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("image", file);
 
         fetch("http://localhost:3000/api/topic/" + id, {
             method: "PUT",
             headers: {
-                'Content-type': 'application/json', 
                 'Authorization': "BEARER " + token
             },
-            body: JSON.stringify(body) 
+            body: formData 
         })
         .then(function(res) {
             if (res.ok) {
@@ -78,7 +79,7 @@ function Topic () {
                 return res.status;
             }
         })
-        // window.location.reload();
+        alert("Topic mis à jour !")
     }
     
     function deleteTopic () {
@@ -155,7 +156,6 @@ function Topic () {
     const createDate = new Date(topic.createdAt).toLocaleDateString("fr");
     const updateDate = new Date(topic.updatedAt).toLocaleDateString("fr");
 
-    // modifier les conditions des autres composants L.164
     return (
         <React.Fragment>
            <Header />
@@ -172,7 +172,10 @@ function Topic () {
                                 { !isEditing && <div id="topicDescription">{topic.description}</div>}
                                 { !isEditing && <div id="imageTopic"><img src={topic.imageUrl}></img></div>}
                             </div>
-                            { isEditing && <input onChange={(e) => setDescription(e.target.value)} id="inputDescription" type="text" placeholder="Modifiez le texte" value={description}></input>}
+                            <div>
+                                { isEditing && <input onChange={(e) => setDescription(e.target.value)} id="inputDescription" type="text" placeholder="Modifiez le texte" value={description}></input>}
+                                { isEditing && <input type="file" onChange={(e) => setFile(e.target.files[0])} required></input>}
+                            </div>
                             { topic.user && <Link to={"/profil/" + topic.userId} id="pseudoTopic">{topic.user.pseudo}</Link> }
                         </div>
                         { isEditing && <div id="submitModification"><input type="submit" className="buttonProfilCreate" value="Modifier"></input></div>}
