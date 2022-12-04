@@ -73,12 +73,12 @@ exports.getOne = (req, res) =>  {
 
 exports.delete = (req, res) =>  {
     const id = req.params.id;
-    const filename = topic.imageUrl.split('/images/')[1];
-
+    
     User.findOne({ where: { id: res.locals.userId }})
     .then(user => {
       Topic.findByPk(id)
         .then(topic => {
+          const filename = topic.imageUrl.split('/images/')[1];
           if (topic.userId == res.locals.userId || user.admin == true) {
             fs.unlink(`images/${filename}`, () => {
               Topic.destroy({
@@ -110,9 +110,6 @@ exports.delete = (req, res) =>  {
 
 exports.update = (req, res) =>  {
     const id = req.params.id;
-    // const topicObject = req.file ? {
-    //   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    // } : { }
 
     const body = req.file ? {
       title: req.body.title,
@@ -127,7 +124,6 @@ exports.update = (req, res) =>  {
             Topic.update(
               body, 
               { where: { id: id } }
-              // { topicObject }
             )
               .then(num => {
                 if (num == 1) {
