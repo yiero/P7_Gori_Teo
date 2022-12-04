@@ -41,6 +41,7 @@ function Commentaire ({comment}) {
             }
         })
         navigate("/topic/" + id); 
+        alert("Commentaire supprimé !")
     }
 
     function handleSubmitComment (e) {
@@ -64,6 +65,7 @@ function Commentaire ({comment}) {
                 return res.status;
             }
         })
+        alert("Commentaire mis à jour !")
     }
 
 

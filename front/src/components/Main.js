@@ -53,6 +53,7 @@ function Main () {
                 return res.status;
             }
         })
+        alert("Votre topic a été créé")
     }
 
     function refreshPages() {

@@ -150,6 +150,7 @@ function Topic () {
                 return res.status;
             }
         })
+        alert("Votre commentaire a bien été créé !")
     }
 
 
