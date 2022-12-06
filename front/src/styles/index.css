@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 body {
   margin: 0;
   height: auto;
   font: 1rem 'Fira Sans', sans-serif;
+  font-family: Lato;
 }
+
 
 @media screen and (min-width:320px) and (max-width: 425px) {
   .form {
