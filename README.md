@@ -23,11 +23,11 @@ Ouvrer le fichier joint "Gori_Teo_2_bdd_062022"
 copier la première ligne "INSERT INTO `users`..." 
 coller cette-dernière dans votre invit de commande
 
-*Vous possédez désormais un utilisateur administrateur*
+__Vous possédez désormais un utilisateur administrateur__
 
 Lancer le front en utilisant la console à sa racine, entrer la commande : npm run start
 
-*Au chargement de la page vous vous retrouverez sur la page Login*
+__Au chargement de la page vous vous retrouverez sur la page Login__
 
 les identifiants du compte admin se trouvent dans le fichier.txt "Gori_Teo_3_compte_admin_062022"
 
