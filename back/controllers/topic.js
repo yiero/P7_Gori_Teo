@@ -115,7 +115,9 @@ exports.update = (req, res) =>  {
       title: req.body.title,
       description: req.body.description,
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { }
+    } : 
+    { title: req.body.title,
+      description: req.body.description }
     User.findOne({ where: { id: res.locals.userId }})
     .then(user => {
       Topic.findByPk(id)

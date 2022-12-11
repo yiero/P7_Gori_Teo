@@ -91,10 +91,10 @@ function Topic () {
         })
         .then(function(res) {
             if (res.ok) {
+                navigate("/main");
                 return res.json();
             }
         })
-        navigate("/main");
     }
 
     function handleLike() {
@@ -106,10 +106,10 @@ function Topic () {
         })
         .then(function(res) {
             if (res.ok) {
+                window.location.reload(); //TODO: PAS de window reload en React
                 return res.json();
             }
         })
-        window.location.reload();
     }
 
     function handleUnlike() { 
@@ -175,7 +175,7 @@ function Topic () {
                             </div>
                             <div>
                                 { isEditing && <input onChange={(e) => setDescription(e.target.value)} id="inputDescription" type="text" placeholder="Modifiez le texte" value={description}></input>}
-                                { isEditing && <input type="file" onChange={(e) => setFile(e.target.files[0])} required></input>}
+                                { isEditing && <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>}
                             </div>
                             { topic.user && <Link to={"/profil/" + topic.userId} id="pseudoTopic">{topic.user.pseudo}</Link> }
                         </div>
