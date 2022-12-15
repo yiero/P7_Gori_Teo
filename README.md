@@ -10,6 +10,8 @@ créer un fichier .env au même niveau que le fichier app.js / server.js...
 dans ce fichier copier/coller la ligne suivante:
 TOKEN = 'RANDOM_TOKEN_SECRET' 
 
+Dans le dossier back, créer un dossier "images" pour faire fonctionner multer
+
 
 Créer votre BDD mysql :
 
@@ -19,7 +21,7 @@ Dans un invit de commande connectez vous avec vos identifiants MYSQL (par exempl
 Créer une nouvelle BDD à l'aide de la commante CREATE DATABASE nom_database
 Ensuite accéder à cette dernière en utilisant USE nom_database
 
-Ouvrer le fichier joint "Gori_Teo_2_bdd_062022" 
+Ouvrer le fichier joint "Gori_Teo_3_compte_admin_062022" 
 copier la première ligne "INSERT INTO `users`..." 
 coller cette-dernière dans votre invit de commande
 
