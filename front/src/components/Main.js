@@ -81,7 +81,6 @@ function Main () {
                                     </Link>
                                     <div className="interactTopic">
                                         <div className="like"><p>👍 {value.likes.length}</p></div>
-                                        {/* <div className="dislike"><p>👎</p></div> */}
                                         <div className="author"><Link to={"/profil/" + value.userId} id="linkProfil" key={`${value}-${index}`}>{value.user.pseudo}</Link></div>
                                     </div>
                                 </div>
